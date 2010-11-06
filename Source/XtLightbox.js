@@ -165,6 +165,7 @@ XtLightbox = new Class(
         var name = element.$xtlightbox.adaptor;
         if (!this.adaptors[name]) return this;
         this.renderer.show();
+        this.renderer.empty();
         var adaptor = this.adaptors[name];
         this.renderer.toElement().addClass('loading');
         adaptor.load(element, function(el) {
