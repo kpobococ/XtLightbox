@@ -187,8 +187,8 @@ XtLightbox = new Class(
             if (this.options.loop) return this.show(this.elements[0]);
             return this;
         }
-        this.show(this.elements[i + 1]);
         this.fireEvent('next', this.elements[i + 1]);
+        this.show(this.elements[i + 1]);
         return this;
     },
 
@@ -201,8 +201,8 @@ XtLightbox = new Class(
             if (this.options.loop) return this.show(this.elements.getLast());
             return this;
         }
-        this.show(this.elements[i - 1]);
         this.fireEvent('previous', this.elements[i - 1]);
+        this.show(this.elements[i - 1]);
         return this;
     },
 
