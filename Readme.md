@@ -14,7 +14,7 @@ custom renderer allows you to completely tweak the look and feel of your lightbo
 
 Base puts everything together.
 
-![Screenshot](http://url_to_project_screenshot)
+![Screenshot](http://kpobococ.github.com/XtLightbox/Screenshot.jpg)
 
 How to use
 ----------
