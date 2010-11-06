@@ -35,8 +35,6 @@
 }
 .xt-lightbox.loading .xt-lightbox-content {
     background: url('./loading.gif') no-repeat 50% 50%;
-    width: 200px;
-    height: 100px;
 }
 .xt-lightbox-content img {
     display: block;
