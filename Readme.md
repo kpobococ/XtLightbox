@@ -58,6 +58,7 @@ Base class. Each adaptor and renderer can introduce any number of additional
 options. Here are the options, available so far:
 
 **XtLightbox**
+
 * `adaptors`: an array of adaptor names to be used with this instance. Defaults to `['Image']`
 * `adaptorOptions`: additional adaptor configuration. See below.
 * `renderer`: a name of a renderer to use with this instance. Defaults to `'Lightbox'`
@@ -70,10 +71,12 @@ options. Here are the options, available so far:
 * `hideArrowsFor`: an array of adaptor names, the contents for which should not have the next/previous overlays. Some adaptors enforce this parameter.
 
 **Adaptor: Image**
+
 * `extensions`: an array of file extensions to treat as images. If `'jpg'` is present in this array, the `'jpeg'` extension is added automatically. Any hrefs that do not end in these extensions are skipped by the lightbox. Defaults to `['jpg', 'png', 'gif']`.
 * `lightboxCompat`: if true, elements will be checked for having their `rel` attribute start with `'lighbox'` instead of checking for their extensions. Defaults to `true`
 
 **Adaptor: YouTube**
+
 * `width`: the width of the video. Defaults to `853`.
 * `height`: the height of the video. Defaults to `505`.
 * `hd`: if true, all the movies are loaded in HD quality, if available. Defaults to `true`.
@@ -81,11 +84,13 @@ options. Here are the options, available so far:
 * `autoplay`: if true, the video will be automatically played upon show. Defaults to `true`.
 
 **Renderer**
+
 * `positionText`: Used to specify a custom "Image x of y" string. Defaults to `'Image {x} of {total}'`
 * `useMask`: if true, the Mask class from MooTools more will be used when showing the lightbox. Defaults to `true`.
 * `maskOptions`: additional Mask options.
 
 **Renderer: Lightbox**
+
 * `maskFxOptions`: additional options for the Mask's Fx.Tween instance.
 * `widthFxOptions`: additional options for the Fx.Tween, that is used to adjust lightbox width.
 * `heightFxOptions`: additional options for the Fx.Tween, that is used to adjust lightbox height. Also used to adjust the `top` value.
