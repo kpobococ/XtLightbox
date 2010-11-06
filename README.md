@@ -19,7 +19,7 @@ Base puts everything together.
 How to use
 ----------
 
-1. Include everything you need into your document:
+Include everything you need into your document:
 
     #HTML
     <!-- Base -->
@@ -33,7 +33,7 @@ How to use
     <!-- Renderer styles -->
     <link rel="stylesheet" type="text/css" href="/XtLightbox/Renderer/Lightbox/style.css" />
 
-2. Create a collection of elements
+Create a collection of elements:
 
     #HTML
     <div class="xtlightbox-gallery">
@@ -42,7 +42,7 @@ How to use
         <a href="/images/image3.jpg" title="Image 3">Image 3</a>
     </div>
 
-3. Initialize the lightbox
+Initialize the lightbox:
 
     #JS
     window.addEvent('domready', function() {
