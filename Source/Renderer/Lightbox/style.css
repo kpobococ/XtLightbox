@@ -1,0 +1,100 @@
+.xt-lightbox-mask {
+    background: #000;
+    opacity: .8;
+    filter: alpha(opacity=80);
+    -moz-opacity: .8;
+    -khtml-opacity: .8;
+    z-index: 1;
+}
+.xt-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+}
+.xt-lightbox .button {
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+.xt-lightbox-wrapper {
+    background: #fff;
+    margin: auto;
+    padding: 10px;
+    width: 200px;
+    position: relative;
+}
+.xt-lightbox-content-wrapper {
+    position: relative;
+}
+.xt-lightbox-content {
+    height: 100px;
+    position: relative;
+}
+.xt-lightbox.loading .xt-lightbox-content {
+    background: url('./loading.gif') no-repeat 50% 50%;
+    width: 200px;
+    height: 100px;
+}
+.xt-lightbox-content img {
+    display: block;
+}
+.xt-lightbox-content iframe {
+    display: block;
+    z-index: 1;
+}
+.xt-lightbox-arrows {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 5;
+}
+.xt-lightbox-prev,
+.xt-lightbox-next {
+    width: 49%;
+    height: 100%;
+    background: transparent url('./blank.gif') repeat;
+    display: block;
+    top: 0;
+}
+.xt-lightbox-prev {
+    left: 0;
+    float: left;
+}
+.xt-lightbox-prev:hover {
+    background: transparent url('./prevlabel.gif') no-repeat 0 15%;
+}
+.xt-lightbox-next {
+    right: 0;
+    float: right;
+}
+.xt-lightbox-next:hover {
+    background: transparent url('./nextlabel.gif') no-repeat 100% 15%;
+}
+.xt-lightbox-footer {
+    font-family: Verdana, Arial, Geneva, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #666;
+    line-height: 1.4em;
+    overflow: hidden;
+}
+.xt-lightbox-footer-wrapper {
+    padding-top: 10px;
+}
+.xt-lightbox-title {
+    font-weight: bold;
+}
+.xt-lightbox-title, .xt-lightbox-position {
+    margin-right: 76px;
+}
+.xt-lightbox .xt-lightbox-close {
+    background: transparent url('./closelabel.gif') no-repeat 0 0;
+    margin-top: 3px;
+    width: 66px;
+    height: 22px;
+    float: right;
+}

@@ -1,0 +1,49 @@
+/* CSS RESET */
+* { margin: 0; padding: 0; }
+body { background: #fff; font: 11px arial, helvetica, sans-serif; }
+/* text elements */
+h1, h2 { margin: 0 0 15px 0; font-weight: bold; }
+h3, h4 { margin: 0 0 5px 0; font-weight: bold; }
+h1 { font-size: 18px; }
+h2 { font-size: 16px; }
+h3 { font-size: 14px; }
+h4 { font-size: 12px; }
+p { margin: 10px 0; }
+blockquote:before, blockquote:after, q:before, q:after { content: ""; }
+blockquote, q { quotes: "" ""; }
+::selection { background: #b8e5ff; color: #000; }
+::-moz-selection { background: #b8e5ff; color: #000; }
+/* lists */
+ul, ol { margin: 10px 0 10px 20px; }
+ul { list-style: none; }
+li { margin: 5px 0; }
+/* links */
+a { text-decoration: underline; color: inherit; }
+a img { border: 0; }
+/* form elements */
+:focus { outline: 0; }
+label, select, input[type="submit"], input[type="reset"], input[type="button"], button { cursor: pointer; }
+input, button, textarea, select, optgroup, option { font: 11px arial, helvetica, sans-serif; }
+input, button, textarea { padding: 2px; }
+input[type="text"], input[type="password"], textarea, select { border: 1px solid #999; }
+input[type="text"]:hover, input[type="password"]:hover, textarea:hover, select:hover,
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border: 1px solid #39f; }
+input[type="submit"], input[type="reset"], input[type="button"], button { padding: 1px 10px; }
+input[type="text"], input[type="password"] { min-width: 125px; }
+select { padding: 1px; min-width: 127px; }
+optgroup, option { font-style: normal; background-color: inherit; color: inherit; }
+option { font-weight: normal; padding: 0 2px; }
+optgroup { font-weight: bold; }
+optgroup option { padding-left: 10px; }
+/* tables */
+table { border-collapse: separate; border-spacing: 0; }
+caption, th, td { text-align: left; font-weight: normal; }
+th { vertical-align: middle; }
+td { vertical-align: top; }
+/* basic classes */
+.clear { clear: both; font-size: 1px; height: 0px; line-height: 0px; }
+.hidden { display: none; }
+.draggable { cursor: move; }
+table.wrapper { width: 100%; margin: 0; padding: 0; border: 0; }
+table.wrapper tr, table.wrapper td { margin: 0; padding: 0; border: 0; vertical-align: top; }
+/* STYLES */
