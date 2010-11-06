@@ -1,3 +1,21 @@
+/*
+---
+name: XtLightbox.Renderer.Lightbox
+
+description: extendable lightbox default Lightbox Renderer
+
+license: MIT-style
+
+authors:
+- Anton Suprun <kpobococ@gmail.com>
+
+requires:
+- XtLightbox.Renderer
+
+provides: XtLightbox.Renderer.Lightbox
+
+...
+*/
 XtLightbox.Renderer.Lightbox = new Class(
 {
     Extends: XtLightbox.Renderer,

@@ -1,3 +1,22 @@
+/*
+---
+name: XtLightbox
+
+description: extendable lightbox Base
+
+license: MIT-style
+
+authors:
+- Anton Suprun <kpobococ@gmail.com>
+
+requires:
+- Core:1.3/*
+- More/Mask
+
+provides: XtLightbox
+
+...
+*/
 XtLightbox = new Class(
 {
     Implements: [Options, Events],

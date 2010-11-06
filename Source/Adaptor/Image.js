@@ -1,3 +1,21 @@
+/*
+---
+name: XtLightbox.Adaptor.Image
+
+description: extendable lightbox Image Adaptor class
+
+license: MIT-style
+
+authors:
+- Anton Suprun <kpobococ@gmail.com>
+
+requires:
+- XtLightbox.Adaptor
+
+provides: XtLightbox.Adaptor.Image
+
+...
+*/
 XtLightbox.Adaptor.Image = new Class(
 {
     Extends: XtLightbox.Adaptor,

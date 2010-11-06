@@ -1,3 +1,21 @@
+/*
+---
+name: XtLightbox.Adaptor.YouTube
+
+description: extendable lightbox YouTube Adaptor class
+
+license: MIT-style
+
+authors:
+- Anton Suprun <kpobococ@gmail.com>
+
+requires:
+- XtLightbox.Adaptor
+
+provides: XtLightbox.Adaptor.YouTube
+
+...
+*/
 XtLightbox.Adaptor.YouTube = new Class(
 {
     Extends: XtLightbox.Adaptor,

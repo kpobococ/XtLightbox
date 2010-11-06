@@ -1,3 +1,21 @@
+/*
+---
+name: XtLightbox.Adaptor
+
+description: extendable lightbox Adaptor base
+
+license: MIT-style
+
+authors:
+- Anton Suprun <kpobococ@gmail.com>
+
+requires:
+- XtLightbox
+
+provides: XtLightbox.Adaptor
+
+...
+*/
 (function()
 {
     var Adaptor = this.XtLightbox.Adaptor = new Class(
