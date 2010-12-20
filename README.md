@@ -68,7 +68,6 @@ options. Here are the options, available so far:
 * `closeKeys`: an array of key names, pressing which should trigger the lightbox to close. Defaults to `['esc']`,
 * `nextKeys`: an array of key names, pressing which should trigger the lightbox to show next image. Defaults to `['right', 'space']`
 * `prevKeys`: an array of key names, pressing which should trigger the lightbox to show previous image. Defaults to `['left']`
-* `hideArrowsFor`: an array of adaptor names, the contents for which should not have the next/previous overlays. Some adaptors enforce this parameter.
 
 **Adaptor: Image**
 
@@ -80,6 +79,7 @@ options. Here are the options, available so far:
 * `width`: the width of the video. Defaults to `853`.
 * `height`: the height of the video. Defaults to `505`.
 * `hd`: if true, all the movies are loaded in HD quality, if available. Defaults to `true`.
+* `fullscreen`: if true, a fullscreen button will be available for all videos. Defaults to `true`.
 * `related`: if true, related videos feature is included. Defaults to `false`.
 * `autoplay`: if true, the video will be automatically played upon show. Defaults to `true`.
 
@@ -88,6 +88,8 @@ options. Here are the options, available so far:
 * `positionText`: Used to specify a custom "Image x of y" string. Defaults to `'Image {x} of {total}'`
 * `useMask`: if true, the Mask class from MooTools more will be used when showing the lightbox. Defaults to `true`.
 * `maskOptions`: additional Mask options.
+* `hideArrowsFor`: an array of adaptor names, the contents for which should not have the next/previous overlays. Defaults to empty array.
+* `hideSinglePosition`: if true, positionText will be hidden for single image collections. Defaults to `true`.
 
 **Renderer: Lightbox**
 
@@ -96,6 +98,7 @@ options. Here are the options, available so far:
 * `heightFxOptions`: additional options for the Fx.Tween, that is used to adjust lightbox height. Also used to adjust the `top` value.
 * `contentFxOptions`: additional options for the Fx.Tween, that is used to reveal the content of the lightbox.
 * `footerFxOptions`: additional options for the Fx.Tween, that is used to reveal the footer (content title and position) of the lightbox.
+* `hideArrowsFor`: see Renderer options for details. Default value changed to `['YouTube']` for this Renderer.
 
 Setting Adaptor and Renderer options
 ------------------------------------
@@ -128,7 +131,7 @@ Base class API:
     var xtl = new XtLightbox();
     xtl.attach('.my-gallery');
     xtl.attach($('my-element'));
-    xtl.attach($$('my-collection'));
+    xtl.attach($$('.my-collection'));
 
 An element will only be attached once and only to a single lightbox instance. To
 detach any element, use this:
@@ -151,3 +154,15 @@ Here is the list of all the supported events:
 * `previous`: fired as soon as the previous button is pressed. Takes the previous element as the only argument. Note, that the `show` event is fired next.
 * `clear`: fired when the lightbox instance is cleared of all elements. No arguments.
 * `destroy`: fired when the lightbox instance is destroyed. Also fires the `clear` event.
+
+Changelog
+---------
+
+**Version 1.1**
+
+* Added `fullscreen` option to YouTube Adaptor (Issue #1);
+* Removed adaptor enforced arrow removal. Arrows can now be removed using Renderer options (Issue #2);
+* Added `hideSinglePosition` option to Renderer (Issue #3);
+* Added `setLoading` method to Renderer (Issue #4);
+* Fixed Lightbox Renderer mask usage when mask is disabled (Issue #5);
+* Fixed exception triggered by clicking on a mask when transition animation is in progress (Issue #7);
