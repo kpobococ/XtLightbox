@@ -21,7 +21,6 @@ XtLightbox.Adaptor.YouTube = new Class(
     Extends: XtLightbox.Adaptor,
 
     $name: 'YouTube',
-    hideArrows: true,
 
     options: {
         width: 853,

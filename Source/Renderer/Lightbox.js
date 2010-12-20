@@ -25,7 +25,8 @@ XtLightbox.Renderer.Lightbox = new Class(
         widthFxOptions: {},
         heightFxOptions: {},
         contentFxOptions: {},
-        footerFxOptions: {}
+        footerFxOptions: {},
+        hideArrowsFor: ['YouTube']
     },
 
     create: function()
@@ -152,7 +153,7 @@ XtLightbox.Renderer.Lightbox = new Class(
     {
         this.btnPrev.setStyle('display', this.rOpts.prev ? '' : 'none');
         this.btnNext.setStyle('display', this.rOpts.next ? '' : 'none');
-        if (!this.rOpts.next && !this.rOpts.prev) this.elArrows.setStyle('display', 'none');
+        if (this.options.hideArrowsFor.contains(this.rOpts.adaptor) || (!this.rOpts.next && !this.rOpts.prev)) this.elArrows.setStyle('display', 'none');
         else this.elArrows.setStyle('display', '');
         this.btnClose.setStyle('display', this.rOpts.close ? '' : 'none');
         this.renderFooter();

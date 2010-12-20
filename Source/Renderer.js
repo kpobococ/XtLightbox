@@ -87,6 +87,12 @@ XtLightbox.Renderer = new Class(
         return this;
     },
 
+    setLoading: function(v)
+    {
+        this.toElement()[!!v ? 'addClass' : 'removeClass']('loading');
+        return this;
+    },
+
     show: function()
     {
         if (!this.injected) this.inject();
@@ -145,7 +151,7 @@ XtLightbox.Renderer = new Class(
         this.elContent.empty().grab(content);
         this.btnPrev.setStyle('display', options.prev ? '' : 'none');
         this.btnNext.setStyle('display', options.next ? '' : 'none');
-        if (!options.next && !options.prev) this.elArrows.setStyle('display', 'none');
+        if (this.options.hideArrowsFor.contains(this.rOpts.adaptor) || (!options.next && !options.prev)) this.elArrows.setStyle('display', 'none');
         else this.elArrows.setStyle('display', '');
         this.btnClose.setStyle('display', options.close ? '' : 'none');
         return this;

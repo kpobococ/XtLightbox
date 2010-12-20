@@ -38,8 +38,7 @@ XtLightbox = new Class(
         loop: false,
         closeKeys: ['esc'],
         nextKeys: ['right', 'space'],
-        prevKeys: ['left'],
-        hideArrowsFor: []
+        prevKeys: ['left']
     },
 
     initialize: function(elements, options)
@@ -98,7 +97,6 @@ XtLightbox = new Class(
             var a = new XtLightbox.Adaptor[name](options);
             this.adaptors[name] = a
             valid.push(a.$name);
-            if (a.hideArrows) this.options.hideArrowsFor.push(a.$name);
         }, this);
         this.options.adaptors = valid;
         return this;
@@ -122,9 +120,7 @@ XtLightbox = new Class(
         if (!instanceOf(elements, Elements)) elements = $$(elements);
         var i, l, a, n, e = new Elements;
         elements.each(function(el) {
-            if (el.$xtlightbox && el.$xtlightbox.adaptor) {
-                return;
-            }
+            if (el.$xtlightbox && el.$xtlightbox.adaptor) return;
             for (i = 0, l = this.options.adaptors.length; i < l; i++)
             {
                 n = this.options.adaptors[i];
@@ -167,20 +163,19 @@ XtLightbox = new Class(
         this.renderer.show();
         this.renderer.empty();
         var adaptor = this.adaptors[name];
-        this.renderer.toElement().addClass('loading');
+        this.renderer.setLoading(true);
         adaptor.load(element, function(el) {
-            this.renderer.toElement().removeClass('loading');
+            this.renderer.setLoading(false);
             var c = adaptor.getContent(el),
                 o = {
                     size: adaptor.getSize(el),
                     title: adaptor.getTitle(el),
                     total: this.elements.length,
-                    position: this.elements.indexOf(el) + 1
+                    position: this.elements.indexOf(el) + 1,
+                    adaptor: element.$xtlightbox.adaptor
                 }
-            if (!this.options.hideArrowsFor.contains(element.$xtlightbox.adaptor)) {
-                if (this.options.loop || o.position > 1) o.prev = true;
-                if (this.options.loop || o.position < o.total) o.next = true;
-            }
+            if (this.options.loop || o.position > 1) o.prev = true;
+            if (this.options.loop || o.position < o.total) o.next = true;
             this.renderer.render(c, o);
         }.bind(this));
         this.current = element;
