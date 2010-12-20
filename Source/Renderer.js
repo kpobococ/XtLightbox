@@ -29,7 +29,9 @@ XtLightbox.Renderer = new Class(
         // onDestroy,
         positionText: 'Image {x} of {total}',
         useMask: true,
-        maskOptions: {}
+        maskOptions: {},
+        hideArrowsFor: [],
+        hideSinglePosition: true
     },
 
     initialize: function(options)
@@ -89,7 +91,7 @@ XtLightbox.Renderer = new Class(
 
     setLoading: function(v)
     {
-        this.toElement()[!!v ? 'addClass' : 'removeClass']('loading');
+        this.toElement()[this.loading = !!v ? 'addClass' : 'removeClass']('loading');
         return this;
     },
 
@@ -140,7 +142,7 @@ XtLightbox.Renderer = new Class(
         }, options);
         this.empty();
         this.elTitle.set('text', options.title || '');
-        if (options.position && options.total && options.total > 1) {
+        if (options.position && options.total && (!this.options.hideSinglePosition || options.total > 1)) {
             this.elPosition.set('text', this.options.positionText.substitute({
                 x: options.position,
                 total: options.total

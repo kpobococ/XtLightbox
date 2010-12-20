@@ -130,7 +130,7 @@ XtLightbox.Renderer.Lightbox = new Class(
         }, options);
         this.empty();
         this.elTitle.set('text', options.title || '');
-        if (options.position && options.total && options.total > 1) {
+        if (options.position && options.total && (!this.options.hideSinglePosition || options.total > 1)) {
             this.elPosition.set('text', this.options.positionText.substitute({
                 x: options.position,
                 total: options.total
