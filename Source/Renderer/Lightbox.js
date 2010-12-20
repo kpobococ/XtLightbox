@@ -77,36 +77,39 @@ XtLightbox.Renderer.Lightbox = new Class(
     inject: function()
     {
         this.parent();
-        this.mask.addEvent('click', this.fireEvent.pass('close', this));
         this.removeEvents('show').removeEvents('hide');
-        var fxShow = new Fx.Tween(this.mask, Object.merge({}, this.options.maskFxOptions, {
-            property: 'opacity',
-            onStart: function() {
-                this.show();
-            }.bind(this.mask),
-            onCancel: function() {},
-            onComplete: function() {}
-        }));
-        var fxHide = new Fx.Tween(this.mask, Object.merge({}, this.options.maskFxOptions, {
-            property: 'opacity',
-            onStart: function() {},
-            onCancel: function() {},
-            onComplete: function() {
-                this.hide();
-            }.bind(this.mask)
-        }));
-        var mo = this.options.maskOpacity || this.mask.toElement().getStyle('opacity') || 1;
-        this.mask.toElement().setStyle('opacity', 0);
-        this.addEvents({
-            show: function() {
-                fxHide.cancel();
-                fxShow.start(mo);
-            },
-            hide: function() {
-                fxShow.cancel();
-                fxHide.start(0);
-            }
-        });
+        if (this.mask)
+        {
+            this.mask.addEvent('click', this.fireEvent.pass('close', this));
+            var fxShow = new Fx.Tween(this.mask, Object.merge({}, this.options.maskFxOptions, {
+                property: 'opacity',
+                onStart: function() {
+                    this.show();
+                }.bind(this.mask),
+                onCancel: function() {},
+                onComplete: function() {}
+            }));
+            var fxHide = new Fx.Tween(this.mask, Object.merge({}, this.options.maskFxOptions, {
+                property: 'opacity',
+                onStart: function() {},
+                onCancel: function() {},
+                onComplete: function() {
+                    this.hide();
+                }.bind(this.mask)
+            }));
+            var mo = this.options.maskOpacity || this.mask.toElement().getStyle('opacity') || 1;
+            this.mask.toElement().setStyle('opacity', 0);
+            this.addEvents({
+                show: function() {
+                    fxHide.cancel();
+                    fxShow.start(mo);
+                },
+                hide: function() {
+                    fxShow.cancel();
+                    fxHide.start(0);
+                }
+            });
+        }
     },
 
     empty: function()
