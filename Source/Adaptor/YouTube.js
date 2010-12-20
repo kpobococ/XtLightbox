@@ -26,6 +26,7 @@ XtLightbox.Adaptor.YouTube = new Class(
         width: 853,
         height: 505,
         hd: true,
+        fullscreen: false,
         related: false,
         autoplay: true
     },
@@ -67,6 +68,7 @@ XtLightbox.Adaptor.YouTube = new Class(
         }
         var params = {};
         // params.wmode = 'transparent';
+        if (this.options.fullscreen) params.fs = '1';
         if (!this.options.related) params.rel = '0';
         if (this.options.hd) params.hd = '1';
         if (this.options.autoplay) params.autoplay = '1';
@@ -86,17 +88,6 @@ XtLightbox.Adaptor.YouTube = new Class(
             }
         }));
         callback(element);
-        /*
-        XtLightbox.Adaptor.cache(element, new Element('iframe', {
-            title: 'Youtube video player',
-            'class': 'youtube-player',
-            type: 'text/html',
-            width: this.options.width,
-            height: this.options.height,
-            src: 'http://www.youtube.com/embed/' + element.$xtlightbox.YouTubeId + '?' + params,
-            frameborder: 0
-        }));
-        //*/
         return this;
     }
 });
