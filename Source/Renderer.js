@@ -161,7 +161,7 @@ XtLightbox.Renderer = new Class(
 
     resize: function(size, callback)
     {
-        if (!this.shown) this.show();
+                if (!this.shown) this.show();
         size = size || {};
         this.element.setStyles({
             width: size.x || '',

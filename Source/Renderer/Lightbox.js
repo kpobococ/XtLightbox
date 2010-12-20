@@ -216,5 +216,18 @@ XtLightbox.Renderer.Lightbox = new Class(
     {
         this.fxWidth.start(this.rX);
         return this;
+    },
+
+    reset: function()
+    {
+        if (!this.injected) return this;
+        this.fxHeight.cancel();
+        this.fxWidth.cancel();
+        this.fxContent.cancel();
+        this.fxFooter.cancel();
+        this.resize();
+        this.empty();
+        this.elFooter.setStyle('display', 'none');
+        return this;
     }
 });
