@@ -35,6 +35,7 @@ XtLightbox = new Class(
         renderer: 'Lightbox',
         rendererOptions: {},
         preload: false,
+        incrementalPreLoad: 3,
         loop: false,
         closeKeys: ['esc'],
         nextKeys: ['right', 'space'],
@@ -130,6 +131,7 @@ XtLightbox = new Class(
                     el.$xtlightbox.adaptor = a.$name;
                     e.push(el);
                     el.addEvent('click', this.onElementClick);
+                    console.log(el);
                     if (this.options.preload) a.load(el);
                     break;
                 }
@@ -177,6 +179,24 @@ XtLightbox = new Class(
             if (this.options.loop || o.position > 1) o.prev = true;
             if (this.options.loop || o.position < o.total) o.next = true;
             this.renderer.render(c, o);
+            
+            // at this point we are done loading the image; optionally 'incremenetally' preload
+            // note that the incremental preload functionality will preload backwards & forwards
+            
+            for(var a = 0; a < this.options.incrementalPreLoad; a++) {
+                if(o.position + a < o.total) {
+                    adaptor.load(this.elements[o.position + a]);
+                }
+            }
+            
+            for(var a = -this.options.incrementalPreLoad; a < 0; a++) {
+                if(o.position + a < 0) {
+                    adaptor.load(this.elements[o.total + (o.position + a)]);
+                } else {
+                    adaptor.load(this.elements[o.position + a]);
+                }
+            }
+            
         }.bind(this));
         this.current = element;
         this.shown = true;
