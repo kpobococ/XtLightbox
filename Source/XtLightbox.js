@@ -131,7 +131,6 @@ XtLightbox = new Class(
                     el.$xtlightbox.adaptor = a.$name;
                     e.push(el);
                     el.addEvent('click', this.onElementClick);
-                    console.log(el);
                     if (this.options.preload) a.load(el);
                     break;
                 }
