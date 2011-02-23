@@ -44,7 +44,7 @@ provides: XtLightbox.Adaptor
 		},
 
 		getSize: function(element){
-			return {x:0,y:0};
+			return {x: 0, y: 0};
 		},
 
 		load: function(element, callback){
@@ -58,8 +58,8 @@ provides: XtLightbox.Adaptor
 
 	});
 
-	var count = 0;
-	var cache = {};
+	var count = 0,
+		cache = {};
 
 	Adaptor.cache = function(element, content){
 		if (!element.$xtlightbox) throw new Error('Element must be attached to a lightbox');

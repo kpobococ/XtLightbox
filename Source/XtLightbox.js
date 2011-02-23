@@ -91,11 +91,11 @@ XtLightbox = new Class({
 		this.adaptors = {};
 		var valid = [];
 		adaptors.each(function(name){
-			if (!XtLightbox.Adaptor[name]) return;
+			if (!XtLightbox.Adaptor[name]) return null;
 			var options = {};
 			if (this.options.adaptorOptions && this.options.adaptorOptions[name]) options = this.options.adaptorOptions[name];
 			var a = new XtLightbox.Adaptor[name](options);
-			this.adaptors[name] = a
+			this.adaptors[name] = a;
 			valid.push(a.$name);
 		}, this);
 		this.options.adaptors = valid;
@@ -118,9 +118,8 @@ XtLightbox = new Class({
 		if (!instanceOf(elements, Elements)) elements = $$(elements);
 		var i, l, a, n, e = new Elements;
 		elements.each(function(el){
-			if (el.$xtlightbox && el.$xtlightbox.adaptor) return;
-			for (i = 0, l = this.options.adaptors.length; i < l; i++)
-			{
+			if (el.$xtlightbox && el.$xtlightbox.adaptor) return null;
+			for (i = 0, l = this.options.adaptors.length; i < l; i++){
 				n = this.options.adaptors[i];
 				a = this.adaptors[n];
 				if (a.check(el)){
@@ -169,7 +168,7 @@ XtLightbox = new Class({
 					total: this.elements.length,
 					position: this.elements.indexOf(el) + 1,
 					adaptor: element.$xtlightbox.adaptor
-				}
+				};
 			if (this.options.loop || o.position > 1) o.prev = true;
 			if (this.options.loop || o.position < o.total) o.next = true;
 			this.renderer.render(c, o);
@@ -177,14 +176,14 @@ XtLightbox = new Class({
 			// at this point we are done loading the image; optionally 'incremenetally' preload
 			// note that the incremental preload functionality will preload backwards & forwards
 			
-			for(var a = 0; a < this.options.incrementalPreLoad; a++){
-				if(o.position + a < o.total){
+			for (var a = 0; a < this.options.incrementalPreLoad; a++){
+				if (o.position + a < o.total){
 					adaptor.load(this.elements[o.position + a]);
 				}
 			}
 			
-			for(var a = -this.options.incrementalPreLoad; a < 0; a++){
-				if(o.position + a < 0){
+			for (var a = -this.options.incrementalPreLoad; a < 0; a++){
+				if (o.position + a < 0){
 					adaptor.load(this.elements[o.total + (o.position + a)]);
 				} else {
 					adaptor.load(this.elements[o.position + a]);

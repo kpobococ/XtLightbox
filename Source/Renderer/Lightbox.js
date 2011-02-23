@@ -180,8 +180,8 @@ XtLightbox.Renderer.Lightbox = new Class({
 			});
 			var wrpY = this.elWrapper.getSize().y;
 			this.elFooter.setStyle('display', 'none');
-			var wrpH = this.elWrapper.getStyle('height').toInt();
-			var top = Math.round((winY - (wrpY - wrpH + size.y)) / 2);
+			var wrpH = this.elWrapper.getStyle('height').toInt(),
+				top = Math.round((winY - (wrpY - wrpH + size.y)) / 2);
 			this.rX = size.x;
 			this.fxHeight.start(size.y);
 			this.fxTop.start(top);

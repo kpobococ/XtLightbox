@@ -54,11 +54,11 @@ XtLightbox.Adaptor.YouTube = new Class({
 		return {
 			x: this.options.width,
 			y: this.options.height
-		}
+		};
 	},
 
 	load: function(element, callback){
-		callback = callback || function(){}
+		callback = callback || function(){};
 		if (XtLightbox.Adaptor.cached(element)){
 			callback(element);
 			return this;

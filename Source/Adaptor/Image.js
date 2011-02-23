@@ -49,11 +49,11 @@ XtLightbox.Adaptor.Image = new Class({
 		return {
 			x: img.naturalWidth,
 			y: img.naturalHeight
-		}
+		};
 	},
 
 	load: function(element, callback){
-		callback = callback || function(){}
+		callback = callback || function(){};
 		if (XtLightbox.Adaptor.cached(element)){
 			callback(element);
 			return this;
