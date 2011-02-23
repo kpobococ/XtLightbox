@@ -16,8 +16,9 @@ provides: XtLightbox.Adaptor.YouTube
 
 ...
 */
-XtLightbox.Adaptor.YouTube = new Class(
-{
+
+XtLightbox.Adaptor.YouTube = new Class({
+
     Extends: XtLightbox.Adaptor,
 
     $name: 'YouTube',
@@ -31,27 +32,24 @@ XtLightbox.Adaptor.YouTube = new Class(
         autoplay: true
     },
 
-    check: function(element)
-    {
+    check: function(element){
         var l = /http:\/\/(?:www\.)?youtube.com\/watch\?(?:\S+=\S*&)*v=([-a-z0-9_]+)(?:&|$)/i,
             s = /http:\/\/(?:www\.)?youtu.be\/([-a-z0-9_]+)$/i;
         var r = l.exec(element.href);
         if (!r) r = s.exec(element.href);
-        if (r) {
+        if (r){
             element.$xtlightbox = element.$xtlightbox || {};
             element.$xtlightbox.YouTubeId = r[1];
         }
         return r;
     },
 
-    getContent: function(element)
-    {
+    getContent: function(element){
         if (!XtLightbox.Adaptor.cached(element)) throw new Error('Element content must be loaded first');
         return XtLightbox.Adaptor.load(element);
     },
 
-    getSize: function(element)
-    {
+    getSize: function(element){
         if (!XtLightbox.Adaptor.cached(element)) throw new Error('Element content must be loaded first');
         return {
             x: this.options.width,
@@ -59,10 +57,9 @@ XtLightbox.Adaptor.YouTube = new Class(
         }
     },
 
-    load: function(element, callback)
-    {
-        callback = callback || function() {}
-        if (XtLightbox.Adaptor.cached(element)) {
+    load: function(element, callback){
+        callback = callback || function(){}
+        if (XtLightbox.Adaptor.cached(element)){
             callback(element);
             return this;
         }
@@ -73,7 +70,7 @@ XtLightbox.Adaptor.YouTube = new Class(
         if (this.options.hd) params.hd = '1';
         if (this.options.autoplay) params.autoplay = '1';
         var a = [];
-        for (var p in params) {
+        for (var p in params){
             if (!params.hasOwnProperty(p)) continue;
             a.push(p + '=' + params[p]);
         }
@@ -90,4 +87,5 @@ XtLightbox.Adaptor.YouTube = new Class(
         callback(element);
         return this;
     }
+
 });

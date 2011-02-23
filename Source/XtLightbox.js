@@ -17,19 +17,20 @@ provides: XtLightbox
 
 ...
 */
-XtLightbox = new Class(
-{
+
+XtLightbox = new Class({
+
     Implements: [Options, Events],
 
     options: {
-        // onAttach: function(element) {},
-        // onDetach: function(element) {},
-        // onShow: function(element) {},
-        // onHide: function() {},
-        // onNext: function(element) {},
-        // onPrevious: function(element) {},
-        // onClear: function() {},
-        // onDestroy: function() {},
+        // onAttach: function(element){},
+        // onDetach: function(element){},
+        // onShow: function(element){},
+        // onHide: function(){},
+        // onNext: function(element){},
+        // onPrevious: function(element){},
+        // onClear: function(){},
+        // onDestroy: function(){},
         adaptors: ['Image'],
         adaptorOptions: {},
         renderer: 'Lightbox',
@@ -42,40 +43,39 @@ XtLightbox = new Class(
         prevKeys: ['left']
     },
 
-    initialize: function(elements, options)
-    {
+    initialize: function(elements, options){
         this.setOptions(options);
         this.loadAdaptors();
         this.loadRenderer();
         var self = this;
-        this.onElementClick = function(e) {
+        this.onElementClick = function(e){
             e.preventDefault();
             self.show(this);
         };
         $(document).addEvents({
-            'keydown': function(e) {
-                if (this.shown) {
-                    if (this.options.closeKeys.contains(e.key)) {
+            'keydown': function(e){
+                if (this.shown){
+                    if (this.options.closeKeys.contains(e.key)){
                         e.stop();
                         this.hide();
-                    } else if (this.options.prevKeys.contains(e.key)) {
+                    } else if (this.options.prevKeys.contains(e.key)){
                         e.stop();
                         this.previous();
-                    } else if (this.options.nextKeys.contains(e.key)) {
+                    } else if (this.options.nextKeys.contains(e.key)){
                         e.stop();
                         this.next();
                     }
                 }
             }.bind(this),
-            'keypress': function(e) {
-                if (this.shown) {
-                    if (this.options.closeKeys.contains(e.key)) {
+            'keypress': function(e){
+                if (this.shown){
+                    if (this.options.closeKeys.contains(e.key)){
                         e.stop();
                         this.hide();
-                    } else if (this.options.prevKeys.contains(e.key)) {
+                    } else if (this.options.prevKeys.contains(e.key)){
                         e.stop();
                         this.previous();
-                    } else if (this.options.nextKeys.contains(e.key)) {
+                    } else if (this.options.nextKeys.contains(e.key)){
                         e.stop();
                         this.next();
                     }
@@ -85,13 +85,12 @@ XtLightbox = new Class(
         this.attach(elements);
     },
 
-    loadAdaptors: function()
-    {
+    loadAdaptors: function(){
         if (this.adaptors && this.adaptors.length > 0) return this;
         var adaptors = this.options.adaptors || ['Image'];
         this.adaptors = {};
         var valid = [];
-        adaptors.each(function(name) {
+        adaptors.each(function(name){
             if (!XtLightbox.Adaptor[name]) return;
             var options = {};
             if (this.options.adaptorOptions && this.options.adaptorOptions[name]) options = this.options.adaptorOptions[name];
@@ -103,8 +102,7 @@ XtLightbox = new Class(
         return this;
     },
 
-    loadRenderer: function()
-    {
+    loadRenderer: function(){
         var name = this.options.renderer;
         if (!name || !XtLightbox.Renderer[name]) name = 'Lightbox';
         this.renderer = new XtLightbox.Renderer[name](this.options.rendererOptions);
@@ -116,17 +114,16 @@ XtLightbox = new Class(
         return this;
     },
 
-    attach: function(elements)
-    {
+    attach: function(elements){
         if (!instanceOf(elements, Elements)) elements = $$(elements);
         var i, l, a, n, e = new Elements;
-        elements.each(function(el) {
+        elements.each(function(el){
             if (el.$xtlightbox && el.$xtlightbox.adaptor) return;
             for (i = 0, l = this.options.adaptors.length; i < l; i++)
             {
                 n = this.options.adaptors[i];
                 a = this.adaptors[n];
-                if (a.check(el)) {
+                if (a.check(el)){
                     el.$xtlightbox = el.$xtlightbox || {};
                     el.$xtlightbox.adaptor = a.$name;
                     e.push(el);
@@ -143,10 +140,9 @@ XtLightbox = new Class(
         return this;
     },
 
-    detach: function(elements)
-    {
+    detach: function(elements){
         if (!instanceOf(elements, Elements)) elements = $$('elements');
-        elements.each(function(el) {
+        elements.each(function(el){
             this.elements.erase(el);
             el.removeEvent('click', this.onElementClick);
             delete el.$xtlightbox.adaptor;
@@ -155,8 +151,7 @@ XtLightbox = new Class(
         return this;
     },
 
-    show: function(element)
-    {
+    show: function(element){
         if (!element.$xtlightbox || !element.$xtlightbox.adaptor) return this;
         if (this.shown && this.current == element) return this;
         var name = element.$xtlightbox.adaptor;
@@ -165,7 +160,7 @@ XtLightbox = new Class(
         this.renderer.empty();
         var adaptor = this.adaptors[name];
         this.renderer.setLoading(true);
-        adaptor.load(element, function(el) {
+        adaptor.load(element, function(el){
             this.renderer.setLoading(false);
             var c = adaptor.getContent(el),
                 o = {
@@ -182,14 +177,14 @@ XtLightbox = new Class(
             // at this point we are done loading the image; optionally 'incremenetally' preload
             // note that the incremental preload functionality will preload backwards & forwards
             
-            for(var a = 0; a < this.options.incrementalPreLoad; a++) {
-                if(o.position + a < o.total) {
+            for(var a = 0; a < this.options.incrementalPreLoad; a++){
+                if(o.position + a < o.total){
                     adaptor.load(this.elements[o.position + a]);
                 }
             }
             
-            for(var a = -this.options.incrementalPreLoad; a < 0; a++) {
-                if(o.position + a < 0) {
+            for(var a = -this.options.incrementalPreLoad; a < 0; a++){
+                if(o.position + a < 0){
                     adaptor.load(this.elements[o.total + (o.position + a)]);
                 } else {
                     adaptor.load(this.elements[o.position + a]);
@@ -203,8 +198,7 @@ XtLightbox = new Class(
         return this;
     },
 
-    hide: function()
-    {
+    hide: function(){
         this.renderer.hide();
         this.current = null;
         this.shown = false;
@@ -212,12 +206,11 @@ XtLightbox = new Class(
         return this;
     },
 
-    next: function()
-    {
+    next: function(){
         if (!this.elements || this.elements.length == 0) return this;
         if (!this.current) return this.show(this.elements[0]);
         var i = this.elements.indexOf(this.current);
-        if (i + 1 == this.elements.length) {
+        if (i + 1 == this.elements.length){
             if (this.options.loop) return this.show(this.elements[0]);
             return this;
         }
@@ -226,12 +219,11 @@ XtLightbox = new Class(
         return this;
     },
 
-    previous: function()
-    {
+    previous: function(){
         if (!this.elements || this.elements.length == 0) return this;
         if (!this.current) return this.show(this.elements[0]);
         var i = this.elements.indexOf(this.current);
-        if (i == 0) {
+        if (i == 0){
             if (this.options.loop) return this.show(this.elements.getLast());
             return this;
         }
@@ -240,10 +232,9 @@ XtLightbox = new Class(
         return this;
     },
 
-    clear: function()
-    {
+    clear: function(){
         if (!this.elements) return this;
-        this.elements.each(function(el) {
+        this.elements.each(function(el){
             el.removeEvent('click', this.onElementClick);
             delete el.$xtlightbox.adaptor;
         });
@@ -252,8 +243,7 @@ XtLightbox = new Class(
         return this;
     },
 
-    destroy: function()
-    {
+    destroy: function(){
         this.clear();
         for (var i = this.adaptors.length; i--;) this.adaptors[i].destroy();
         this.adaptors.empty();
@@ -263,8 +253,8 @@ XtLightbox = new Class(
         return null;
     },
 
-    toElement: function()
-    {
+    toElement: function(){
         return this.renderer.toElement();
     }
+
 });

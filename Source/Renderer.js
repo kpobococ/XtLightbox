@@ -16,8 +16,9 @@ provides: XtLightbox.Renderer
 
 ...
 */
-XtLightbox.Renderer = new Class(
-{
+
+XtLightbox.Renderer = new Class({
+
     Implements: [Options, Events],
 
     options: {
@@ -34,13 +35,11 @@ XtLightbox.Renderer = new Class(
         hideSinglePosition: true
     },
 
-    initialize: function(options)
-    {
+    initialize: function(options){
         this.setOptions(options);
     },
 
-    create: function()
-    {
+    create: function(){
         if (this.element) return this;
         this.element = new Element('div.xt-lightbox').grab(
             this.elWrapper = new Element('div.xt-lightbox-wrapper').adopt(
@@ -66,8 +65,7 @@ XtLightbox.Renderer = new Class(
         return this;
     },
 
-    inject: function()
-    {
+    inject: function(){
         if (this.injected) return this;
         if (!this.element) this.create();
         var i = this.options.inject,
@@ -89,14 +87,12 @@ XtLightbox.Renderer = new Class(
         return this;
     },
 
-    setLoading: function(v)
-    {
+    setLoading: function(v){
         this.toElement()[this.loading = !!v ? 'addClass' : 'removeClass']('loading');
         return this;
     },
 
-    show: function()
-    {
+    show: function(){
         if (!this.injected) this.inject();
         if (this.shown) return this;
         this.element.setStyle('display', '');
@@ -106,8 +102,7 @@ XtLightbox.Renderer = new Class(
         return this;
     },
 
-    hide: function()
-    {
+    hide: function(){
         if (!this.injected || !this.shown) return this;
         this.reset();
         this.element.setStyle('display', 'none');
@@ -116,8 +111,7 @@ XtLightbox.Renderer = new Class(
         return this;
     },
 
-    reset: function()
-    {
+    reset: function(){
         if (!this.injected) return this;
         this.resize();
         this.empty();
@@ -125,8 +119,7 @@ XtLightbox.Renderer = new Class(
         return this;
     },
 
-    empty: function()
-    {
+    empty: function(){
         if (!this.element) return this;
         this.elTitle.empty();
         this.elPosition.empty();
@@ -134,8 +127,7 @@ XtLightbox.Renderer = new Class(
         return this;
     },
 
-    render: function(content, options)
-    {
+    render: function(content, options){
         if (!content) return this;
         options = Object.append({
             close: true
@@ -159,9 +151,8 @@ XtLightbox.Renderer = new Class(
         return this;
     },
 
-    resize: function(size, callback)
-    {
-                if (!this.shown) this.show();
+    resize: function(size, callback){
+		if (!this.shown) this.show();
         size = size || {};
         this.element.setStyles({
             width: size.x || '',
@@ -171,16 +162,15 @@ XtLightbox.Renderer = new Class(
         return this;
     },
 
-    toElement: function()
-    {
+    toElement: function(){
         if (!this.element) this.create();
         return this.element;
     },
 
-    destroy: function()
-    {
+    destroy: function(){
         this.element.destroy();
         this.fireEvent('destroy');
         return null;
     }
+
 });
