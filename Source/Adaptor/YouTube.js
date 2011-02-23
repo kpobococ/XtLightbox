@@ -9,10 +9,9 @@ license: MIT-style
 authors:
 - Anton Suprun <kpobococ@gmail.com>
 
-requires:
-- XtLightbox.Adaptor
+requires: [Core/Swiff, XtLightbox.Adaptor]
 
-provides: XtLightbox.Adaptor.YouTube
+provides: [XtLightbox.Adaptor.YouTube]
 
 ...
 */

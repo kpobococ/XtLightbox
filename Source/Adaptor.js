@@ -9,10 +9,9 @@ license: MIT-style
 authors:
 - Anton Suprun <kpobococ@gmail.com>
 
-requires:
-- XtLightbox
+requires: [XtLightbox]
 
-provides: XtLightbox.Adaptor
+provides: [XtLightbox.Adaptor]
 
 ...
 */

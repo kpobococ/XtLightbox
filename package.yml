@@ -4,3 +4,14 @@ category: Interface
 tags: [image, video, lightbox, media, interface]
 demo: http://kpobococ.github.com/XtLightbox/
 current: 1.1
+description: "Extendable lightbox for MooTools"
+web: "[mootools.net/forge/p/XtLightbox](http://mootools.net/forge/p/XtLightbox)"
+copyright: "&copy; 2011, Anton Suprun"
+license: "MIT License"
+sources:
+  - "Source/XtLightbox.js"
+  - "Source/Adaptor.js"
+  - "Source/Renderer.js"
+  - "Source/Adaptor/Image.js"
+  - "Source/Adaptor/YouTube.js"
+  - "Source/Renderer/Lightbox.js"

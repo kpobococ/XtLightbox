@@ -9,10 +9,9 @@ license: MIT-style
 authors:
 - Anton Suprun <kpobococ@gmail.com>
 
-requires:
-- XtLightbox.Renderer
+requires: [Core/Fx.Tween, XtLightbox.Renderer]
 
-provides: XtLightbox.Renderer.Lightbox
+provides: [XtLightbox.Renderer.Lightbox]
 
 ...
 */

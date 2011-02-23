@@ -9,11 +9,9 @@ license: MIT-style
 authors:
 - Anton Suprun <kpobococ@gmail.com>
 
-requires:
-- Core:1.3/*
-- More/Mask
+requires: [Core/Class.Extras, Core/Element]
 
-provides: XtLightbox
+provides: [XtLightbox]
 
 ...
 */

@@ -9,10 +9,9 @@ license: MIT-style
 authors:
 - Anton Suprun <kpobococ@gmail.com>
 
-requires:
-- XtLightbox
+requires: [More/Mask, XtLightbox]
 
-provides: XtLightbox.Renderer
+provides: [XtLightbox.Renderer]
 
 ...
 */
