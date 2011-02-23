@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>XtLightbox - Extendable Lightbox</title>
+	<link rel="stylesheet" type="text/css" href="../Source/Renderer/Lightbox/style.css" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.0/mootools-yui-compressed.js"></script>
+	<script type="text/javascript" src="mootools-more.js"></script>
+	<script type="text/javascript" src="../Source/XtLightbox.js"></script>
+	<script type="text/javascript" src="../Source/Adaptor.js"></script>
+	<script type="text/javascript" src="../Source/Renderer.js"></script>
+	<script type="text/javascript" src="../Source/Adaptor/Image.js"></script>
+	<script type="text/javascript" src="../Source/Adaptor/YouTube.js"></script>
+	<script type="text/javascript" src="../Source/Renderer/Lightbox.js"></script>
+	<script type="text/javascript">
+		window.addEvent('domready', function(){
+			new XtLightbox('.gallery a', {
+				loop: true,
+				adaptorOptions: {
+					Image: {
+						lightboxCompat: false
+					}
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	  <div class="gallery">
+		  <a href="http://kpobococ.github.com/XtLightbox/images/fruit-1.jpg" title="Some fruit">
+			  <img src="http://kpobococ.github.com/XtLightbox/images/small-fruit-1.jpg" alt="" />
+		  </a>
+		  <a href="http://kpobococ.github.com/XtLightbox/images/fruit-2.jpg" title="Some more fruit">
+			  <img src="http://kpobococ.github.com/XtLightbox/images/small-fruit-2.jpg" alt="" />
+		  </a>
+		  <a href="http://kpobococ.github.com/XtLightbox/images/fruit-3.gif" title="Even more fruit">
+			  <img src="http://kpobococ.github.com/XtLightbox/images/small-fruit-3.jpg" alt="" />
+		  </a>
+	  </div>
+</body>
+</html>
