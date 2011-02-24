@@ -64,6 +64,7 @@ options. Here are the options, available so far:
 * `renderer`: a name of a renderer to use with this instance. Defaults to `'Lightbox'`
 * `rendererOptions`: additional renderer configuration. See below.
 * `preload`: if true, all the content will be preloaded as soon as the lightbox is initialized. Defaults to `false`
+* `incrementalPreLoad`: if greater than zero, incrementally preloads this many content items before and after the current. Does not depend on `preload` option. Defaults to `3`
 * `loop`: if true, clicking next while on the last element in the collection will move the user to the first element in the collection and vice-versa. Defaults to `false`
 * `closeKeys`: an array of key names, pressing which should trigger the lightbox to close. Defaults to `['esc']`,
 * `nextKeys`: an array of key names, pressing which should trigger the lightbox to show next image. Defaults to `['right', 'space']`
@@ -157,6 +158,11 @@ Here is the list of all the supported events:
 
 Changelog
 ---------
+
+**Version 1.2**
+
+* Added `incrementalPreLoad` option (credit to [iloveitaly](https://github.com/iloveitaly));
+* All sources use MooTools coding convention (credit to [eerne](https://github.com/eerne));
 
 **Version 1.1**
 
