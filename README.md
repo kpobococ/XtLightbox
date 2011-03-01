@@ -159,6 +159,10 @@ Here is the list of all the supported events:
 Changelog
 ---------
 
+**Version 1.2.1**
+
+* Fixed `detach` method element selector;
+
 **Version 1.2**
 
 * Added `incrementalPreLoad` option (credit to [iloveitaly](https://github.com/iloveitaly));
