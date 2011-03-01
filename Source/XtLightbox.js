@@ -138,7 +138,7 @@ XtLightbox = new Class({
 	},
 
 	detach: function(elements){
-		if (!instanceOf(elements, Elements)) elements = $$('elements');
+		if (!instanceOf(elements, Elements)) elements = $$(elements);
 		elements.each(function(el){
 			this.elements.erase(el);
 			el.removeEvent('click', this.onElementClick);
