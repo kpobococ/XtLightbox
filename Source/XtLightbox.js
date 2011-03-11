@@ -176,15 +176,15 @@ XtLightbox = new Class({
 			
 			for (var a = 0; a < this.options.incrementalPreLoad; a++){
 				if (o.position + a < o.total){
-					adaptor.load(this.elements[o.position + a]);
+					this.adaptors[this.elements[o.position + a].$xtlightbox.adaptor].load(this.elements[o.position + a]);
 				}
 			}
 			
 			for (var a = -this.options.incrementalPreLoad; a < 0; a++){
 				if (o.position + a < 0){
-					adaptor.load(this.elements[o.total + (o.position + a)]);
+					this.adaptors[this.elements[o.total + (o.position + a)].$xtlightbox.adaptor].load(this.elements[o.total + (o.position + a)]);
 				} else {
-					adaptor.load(this.elements[o.position + a]);
+					this.adaptors[this.elements[o.position + a].$xtlightbox.adaptor].load(this.elements[o.position + a]);
 				}
 			}
 			
