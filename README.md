@@ -159,6 +159,10 @@ Here is the list of all the supported events:
 Changelog
 ---------
 
+**Version 1.2.2**
+
+* Fixed `incrementalPreLoad` option to use the correct adaptor for each element (credit to [thomasd](https://github.com/thomasd));
+
 **Version 1.2.1**
 
 * Fixed `detach` method element selector;
