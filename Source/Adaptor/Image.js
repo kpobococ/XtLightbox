@@ -9,68 +9,64 @@ license: MIT-style
 authors:
 - Anton Suprun <kpobococ@gmail.com>
 
-requires:
-- XtLightbox.Adaptor
+requires: [XtLightbox.Adaptor]
 
-provides: XtLightbox.Adaptor.Image
+provides: [XtLightbox.Adaptor.Image]
 
 ...
 */
-XtLightbox.Adaptor.Image = new Class(
-{
-    Extends: XtLightbox.Adaptor,
 
-    $name: 'Image',
+XtLightbox.Adaptor.Image = new Class({
 
-    options: {
-        extensions: ['jpg', 'png', 'gif'],
-        lightboxCompat: true
-    },
+	Extends: XtLightbox.Adaptor,
 
-    initialize: function(options)
-    {
-        this.parent(options);
-        var e = this.options.extensions || [];
-        if (e.contains('jpg') && !e.contains('jpeg')) e.push('jpeg');
-    },
+	$name: 'Image',
 
-    check: function(element)
-    {
-        return this.options.lightboxCompat ? this.parent(element) : element.href.test('\\.(?:' + this.options.extensions.join('|') + ')$', 'i');
-    },
+	options: {
+		extensions: ['jpg', 'png', 'gif'],
+		lightboxCompat: true
+	},
 
-    getContent: function(element)
-    {
-        if (!XtLightbox.Adaptor.cached(element)) throw new Error('Element content must be loaded first');
-        return XtLightbox.Adaptor.load(element);
-    },
+	initialize: function(options){
+		this.parent(options);
+		var e = this.options.extensions || [];
+		if (e.contains('jpg') && !e.contains('jpeg')) e.push('jpeg');
+	},
 
-    getSize: function(element)
-    {
-        if (!XtLightbox.Adaptor.cached(element)) throw new Error('Element content must be loaded first');
-        var img = XtLightbox.Adaptor.load(element);
-        return {
-            x: img.naturalWidth,
-            y: img.naturalHeight
-        }
-    },
+	check: function(element){
+		return this.options.lightboxCompat ? this.parent(element) : element.href.test('\\.(?:' + this.options.extensions.join('|') + ')$', 'i');
+	},
 
-    load: function(element, callback)
-    {
-        callback = callback || function() {}
-        if (XtLightbox.Adaptor.cached(element)) {
-            callback(element);
-            return this;
-        }
-        new Element('img').addEvent('load', function() {
-            if (!this.naturalWidth) this.naturalWidth = this.width;
-            if (!this.naturalHeight) this.naturalHeight = this.height;
-            XtLightbox.Adaptor.cache(element, this);
-            callback(element);
-        }).set({
-            src: element.href,
-            alt: ''
-        });
-        return this;
-    }
+	getContent: function(element){
+		if (!XtLightbox.Adaptor.cached(element)) throw new Error('Element content must be loaded first');
+		return XtLightbox.Adaptor.load(element);
+	},
+
+	getSize: function(element){
+		if (!XtLightbox.Adaptor.cached(element)) throw new Error('Element content must be loaded first');
+		var img = XtLightbox.Adaptor.load(element);
+		return {
+			x: img.naturalWidth,
+			y: img.naturalHeight
+		};
+	},
+
+	load: function(element, callback){
+		callback = callback || function(){};
+		if (XtLightbox.Adaptor.cached(element)){
+			callback(element);
+			return this;
+		}
+		new Element('img').addEvent('load', function(){
+			if (!this.naturalWidth) this.naturalWidth = this.width;
+			if (!this.naturalHeight) this.naturalHeight = this.height;
+			XtLightbox.Adaptor.cache(element, this);
+			callback(element);
+		}).set({
+			src: element.href,
+			alt: ''
+		});
+		return this;
+	}
+	
 });

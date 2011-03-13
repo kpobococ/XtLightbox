@@ -9,92 +9,83 @@ license: MIT-style
 authors:
 - Anton Suprun <kpobococ@gmail.com>
 
-requires:
-- XtLightbox
+requires: [XtLightbox]
 
-provides: XtLightbox.Adaptor
+provides: [XtLightbox.Adaptor]
 
 ...
 */
-(function()
-{
-    var Adaptor = this.XtLightbox.Adaptor = new Class(
-    {
-        Implements: Options,
 
-        $name: '',
+(function(){
 
-        options: {},
+	var Adaptor = this.XtLightbox.Adaptor = new Class({
 
-        initialize: function(options)
-        {
-            this.setOptions(options);
-        },
+		Implements: Options,
 
-        check: function(element)
-        {
-            return element.rel.test(/^lightbox/);
-        },
+		$name: '',
 
-        getContent: function(element)
-        {
-            return '';
-        },
+		options: {},
 
-        getTitle: function(element)
-        {
-            return element.title;
-        },
+		initialize: function(options){
+			this.setOptions(options);
+		},
 
-        getSize: function(element)
-        {
-            return {x:0,y:0};
-        },
+		check: function(element){
+			return element.rel.test(/^lightbox/);
+		},
 
-        load: function(element, callback)
-        {
-            callback(element);
-            return this;
-        },
+		getContent: function(element){
+			return '';
+		},
 
-        destroy: function()
-        {
-            return null;
-        }
-    });
+		getTitle: function(element){
+			return element.title;
+		},
 
-    var count = 0;
-    var cache = {};
+		getSize: function(element){
+			return {x: 0, y: 0};
+		},
 
-    Adaptor.cache = function(element, content)
-    {
-        if (!element.$xtlightbox) throw new Error('Element must be attached to a lightbox');
-        var a = element.$xtlightbox.adaptor, i = element.$xtlightbox.id;
-        if (!i) i = element.$xtlightbox.id = ++count;
-        cache[a + '-' + i] = content;
-        return element;
-    }
+		load: function(element, callback){
+			callback(element);
+			return this;
+		},
 
-    Adaptor.load = function(element)
-    {
-        if (!element.$xtlightbox) throw new Error('Element must be attached to a lightbox');
-        if (!Adaptor.cached(element)) return null;
-        var a = element.$xtlightbox.adaptor, i = element.$xtlightbox.id;
-        return cache[a + '-' + i];
-    }
+		destroy: function(){
+			return null;
+		}
 
-    Adaptor.clear = function(element)
-    {
-        if (!Adaptor.cached(element)) return element;
-        var a = element.$xtlightbox.adaptor, i = element.$xtlightbox.id;
-        cache[a + '-' + i] = null;
-        return element;
-    }
+	});
 
-    Adaptor.cached = function(element)
-    {
-        if (!element.$xtlightbox) return false;
-        var i = element.$xtlightbox.id, a = element.$xtlightbox.adaptor;
-        return i && a && cache[a + '-' + i];
-    }
+	var count = 0,
+		cache = {};
+
+	Adaptor.cache = function(element, content){
+		if (!element.$xtlightbox) throw new Error('Element must be attached to a lightbox');
+		var a = element.$xtlightbox.adaptor, i = element.$xtlightbox.id;
+		if (!i) i = element.$xtlightbox.id = ++count;
+		cache[a + '-' + i] = content;
+		return element;
+	}
+
+	Adaptor.load = function(element){
+		if (!element.$xtlightbox) throw new Error('Element must be attached to a lightbox');
+		if (!Adaptor.cached(element)) return null;
+		var a = element.$xtlightbox.adaptor, i = element.$xtlightbox.id;
+		return cache[a + '-' + i];
+	}
+
+	Adaptor.clear = function(element){
+		if (!Adaptor.cached(element)) return element;
+		var a = element.$xtlightbox.adaptor, i = element.$xtlightbox.id;
+		cache[a + '-' + i] = null;
+		return element;
+	}
+
+	Adaptor.cached = function(element){
+		if (!element.$xtlightbox) return false;
+		var i = element.$xtlightbox.id, a = element.$xtlightbox.adaptor;
+		return i && a && cache[a + '-' + i];
+	}
+
 })();
