@@ -9,7 +9,7 @@ license: MIT-style
 authors:
 - Anton Suprun <kpobococ@gmail.com>
 
-requires: [Core/Fx.Tween, XtLightbox.Renderer]
+requires: [Core/Fx.Tween, Core/Fx.Morph, XtLightbox.Renderer]
 
 provides: [XtLightbox.Renderer.Lightbox]
 
@@ -31,27 +31,26 @@ XtLightbox.Renderer.Lightbox = new Class({
 
 	create: function(){
 		this.parent();
-		this.fxWidth = new Fx.Tween(this.elWrapper, Object.merge({}, this.options.widthFxOptions, {
-			property: 'width',
-			onStart: function(){},
-			onCancel: function(){},
-			onComplete: function(){
-				this.onWidthChange();
-			}.bind(this)
-		}));
+        this.fxWidth = new Fx.Morph(this.element, Object.merge({}, this.options.widthFxOptions, {
+            onStart: function(){},
+            onCancel: function(){},
+            onComplete: function(){
+                this.onWidthChange();
+            }.bind(this)
+        }));
+        this.fxTop = new Fx.Tween(this.element, Object.merge({}, this.options.heightFxOptions, {
+			property: 'top',
+            onStart: function(){},
+            onCancel: function(){},
+            onComplete: function(){}
+        }));
 		this.fxHeight = new Fx.Tween(this.elContent, Object.merge({}, this.options.heightFxOptions, {
 			property: 'height',
 			onStart: function(){},
 			onCancel: function(){},
 			onComplete: function(){
-				this.onHeightChange();
-			}.bind(this)
-		}));
-		this.fxTop = new Fx.Tween(this.element, Object.merge({}, this.options.heightFxOptions, {
-			property: 'top',
-			onStart: function(){},
-			onCancel: function(){},
-			onComplete: function(){}
+                this.onHeightChange();
+            }.bind(this)
 		}));
 		this.fxContent = new Fx.Tween(this.elContent, Object.merge({}, this.options.contentFxOptions, {
 			property: 'opacity',
@@ -71,6 +70,15 @@ XtLightbox.Renderer.Lightbox = new Class({
 				this.elFooter.setStyle('overflow', '');
 			}.bind(this)
 		}));
+	},
+
+	destroy: function(){
+		delete this.fxWidth;
+		delete this.fxTop;
+		delete this.fxHeight;
+		delete this.fxContent;
+		delete this.fxFooter;
+		return this.parent();
 	},
 
 	inject: function(){
@@ -114,10 +122,14 @@ XtLightbox.Renderer.Lightbox = new Class({
 		this.elFooter.setStyle('display', 'none');
 		this.btnPrev.setStyle('display', 'none');
 		this.btnNext.setStyle('display', 'none');
-		this.rOpts = {};
-		this.rCont = null;
-		this.rX = null;
-		this.fxFooter.cancel();
+		this._opts = {};
+		this._cont = null;
+		this._fwopts = null;
+        this.fxHeight.cancel();
+		this.fxTop.cancel();
+        this.fxWidth.cancel();
+        this.fxContent.cancel();
+        this.fxFooter.cancel();
 		return this;
 	},
 
@@ -134,24 +146,23 @@ XtLightbox.Renderer.Lightbox = new Class({
 				total: options.total
 			}));
 		}
-		this.rOpts = options;
-		this.rCont = content;
+		this._opts = options;
+		this._cont = content;
 		this.resize(options.size);
 		return this;
 	},
 
-	renderContent: function(callback){
-		callback = callback || function(){};
+	renderContent: function(){
 		this.fxContent.set(0).start(1);
 		return this;
 	},
 
 	onContentRender: function(){
-		this.btnPrev.setStyle('display', this.rOpts.prev ? '' : 'none');
-		this.btnNext.setStyle('display', this.rOpts.next ? '' : 'none');
-		if (this.options.hideArrowsFor.contains(this.rOpts.adaptor) || (!this.rOpts.next && !this.rOpts.prev)) this.elArrows.setStyle('display', 'none');
+		this.btnPrev.setStyle('display', this._opts.prev ? '' : 'none');
+		this.btnNext.setStyle('display', this._opts.next ? '' : 'none');
+		if (this.options.hideArrowsFor.contains(this._opts.adaptor) || (!this._opts.next && !this._opts.prev)) this.elArrows.setStyle('display', 'none');
 		else this.elArrows.setStyle('display', '');
-		this.btnClose.setStyle('display', this.rOpts.close ? '' : 'none');
+		this.btnClose.setStyle('display', this._opts.close ? '' : 'none');
 		this.renderFooter();
 	},
 
@@ -171,48 +182,65 @@ XtLightbox.Renderer.Lightbox = new Class({
 
 	resize: function(size){
 		if (!this.shown) this.show();
-		if (size && size.x && size.y){
-			var winY = window.getSize().y;
-			this.elFooter.setStyles({
-				display: '',
-				height: ''
+        var winSize = window.getSize(), elSize;
+        if (size && size.x && size.y){
+            this.elFooter.setStyles({
+                display: '',
+                height: ''
 			});
-			var wrpY = this.elWrapper.getSize().y;
-			this.elFooter.setStyle('display', 'none');
-			var wrpH = this.elWrapper.getStyle('height').toInt(),
-				top = Math.round((winY - (wrpY - wrpH + size.y)) / 2);
-			this.rX = size.x;
-			this.fxHeight.start(size.y);
-			this.fxTop.start(top);
+            var elFull = this.element.getSize();
+            var elBox = {
+                x: this.elWrapper.getStyle('width').toInt(),
+                y: this.elWrapper.getStyle('height').toInt()
+            };
+			var fY = this.elFooter.getSize().y;
+            this.elFooter.setStyle('display', 'none');
+            elSize = {
+                x: elFull.x - elBox.x + size.x,
+                y: elFull.y - elBox.y + size.y + fY
+            };
+            this._fwopts = {
+                width: elSize.x,
+                left: Math.round((winSize.x - elSize.x) / 2)
+            };
+			if (size.y != this.elContent.getStyle('height').toInt()){
+				this.resizing = true;
+				this.fxHeight.start(size.y);
+				this.fxTop.start(Math.round((winSize.y - elSize.y) / 2));
+			} else this.onHeightChange();
 		} else {
 			// Reset size
 			size = size || {};
-			this.elWrapper.setStyle('width', size.x || '');
+            this.element.setStyle('width', size.x || '');
 			this.elContent.setStyle('height', size.y || '');
-			this.elFooter.setStyle('display', '');
-			this.element.setStyle('top', Math.round((window.getSize().y - this.elWrapper.getSize().y) / 2));
-			this.elFooter.setStyle('display', 'none');
+            this.elFooter.setStyle('display', '');
+            elSize = this.element.getSize();
+            this.elFooter.setStyle('display', 'none');
+            this.element.setStyles({
+                left: Math.round((winSize.x - elSize.x) / 2),
+                top: Math.round((winSize.y - elSize.y) / 2)
+            });
 		}
 		return this;
 	},
 
 	onWidthChange: function(){
-		this.elContent.grab(this.rCont);
+		this.resizing = false;
+		this.elContent.grab(this._cont);
 		this.renderContent();
 		return this;
 	},
 
 	onHeightChange: function(){
-		this.fxWidth.start(this.rX);
+		if (this._fwopts.width != this.element.getStyle('width').toInt()) {
+			this.resizing = true;
+			this.fxWidth.start(this._fwopts);
+		} else this.onWidthChange();
 		return this;
 	},
 
 	reset: function(){
 		if (!this.injected) return this;
-		this.fxHeight.cancel();
-		this.fxWidth.cancel();
-		this.fxContent.cancel();
-		this.fxFooter.cancel();
 		this.resize();
 		this.empty();
 		this.elFooter.setStyle('display', 'none');

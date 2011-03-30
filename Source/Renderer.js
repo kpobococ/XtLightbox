@@ -170,6 +170,31 @@ XtLightbox.Renderer = new Class({
 		this.element.destroy();
 		this.fireEvent('destroy');
 		return null;
-	}
+	},
+
+    getMaxSize: function(options){
+        var t = this.elTitle.get('text'), p,
+            d = this.elFooter.getStyle('display');
+        this.elTitle.set('text', options.title || '');
+        if (options.position && options.total && (!this.options.hideSinglePosition || options.total > 1)){
+            p = this.elPosition.get('text');
+    		this.elPosition.set('text', this.options.positionText.substitute({
+				x: options.position,
+				total: options.total
+			}));
+		}
+        this.elFooter.setStyle('display', '');
+        var winSize  = window.getSize();
+        var elSize   = this.element.getSize();
+        var contSize = this.elContent.getSize();
+        // revert state
+        this.elTitle.set('text', t || '');
+        if (p) this.elPosition.set('text', p);
+        this.elFooter.setStyle('display', d);
+        return {
+            x: winSize.x - (elSize.x - contSize.x),
+            y: winSize.y - (elSize.y - contSize.y)
+        };
+    }
 
 });

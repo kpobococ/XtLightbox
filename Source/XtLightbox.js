@@ -50,35 +50,23 @@ XtLightbox = new Class({
 			e.preventDefault();
 			self.show(this);
 		};
-		$(document).addEvents({
-			'keydown': function(e){
-				if (this.shown){
-					if (this.options.closeKeys.contains(e.key)){
-						e.stop();
-						this.hide();
-					} else if (this.options.prevKeys.contains(e.key)){
-						e.stop();
-						this.previous();
-					} else if (this.options.nextKeys.contains(e.key)){
-						e.stop();
-						this.next();
-					}
-				}
-			}.bind(this),
-			'keypress': function(e){
-				if (this.shown){
-					if (this.options.closeKeys.contains(e.key)){
-						e.stop();
-						this.hide();
-					} else if (this.options.prevKeys.contains(e.key)){
-						e.stop();
-						this.previous();
-					} else if (this.options.nextKeys.contains(e.key)){
-						e.stop();
-						this.next();
-					}
+		this.onKeyPress = function(e){
+			if (self.shown){
+				if (self.options.closeKeys.contains(e.key)){
+					e.stop();
+					self.hide();
+				} else if (self.options.prevKeys.contains(e.key)){
+					e.stop();
+					self.previous();
+				} else if (self.options.nextKeys.contains(e.key)){
+					e.stop();
+					self.next();
 				}
 			}
+		};
+		$(document).addEvents({
+			'keydown': this.onKeyPress,
+			'keypress': this.onKeyPress
 		});
 		this.attach(elements);
 	},
@@ -159,9 +147,7 @@ XtLightbox = new Class({
 		this.renderer.setLoading(true);
 		adaptor.load(element, function(el){
 			this.renderer.setLoading(false);
-			var c = adaptor.getContent(el),
-				o = {
-					size: adaptor.getSize(el),
+			var o = {
 					title: adaptor.getTitle(el),
 					total: this.elements.length,
 					position: this.elements.indexOf(el) + 1,
@@ -169,18 +155,35 @@ XtLightbox = new Class({
 				};
 			if (this.options.loop || o.position > 1) o.prev = true;
 			if (this.options.loop || o.position < o.total) o.next = true;
+
+            // max content size may depend on title size
+            var maxSize = this.renderer.getMaxSize(o);
+            o.size = adaptor.getSize(el);
+
+            // check if max size is exceeded
+            if (maxSize.x < o.size.x){
+                o.size.y = Math.round(maxSize.x * o.size.y / o.size.x);
+                o.size.x = maxSize.x;
+            }
+            if (maxSize.y < o.size.y){
+                o.size.x = Math.round(o.size.x * maxSize.y / o.size.y);
+                o.size.y = maxSize.y;
+            }
+            adaptor.setSize(el, o.size);
+            var c = adaptor.getContent(el);
 			this.renderer.render(c, o);
 			
 			// at this point we are done loading the image; optionally 'incremenetally' preload
 			// note that the incremental preload functionality will preload backwards & forwards
-			
-			for (var a = 0; a < this.options.incrementalPreLoad; a++){
+
+                        var a;
+			for (a = 0; a < this.options.incrementalPreLoad; a++){
 				if (o.position + a < o.total){
 					this.adaptors[this.elements[o.position + a].$xtlightbox.adaptor].load(this.elements[o.position + a]);
 				}
 			}
 			
-			for (var a = -this.options.incrementalPreLoad; a < 0; a++){
+			for (a = -this.options.incrementalPreLoad; a < 0; a++){
 				if (o.position + a < 0){
 					this.adaptors[this.elements[o.total + (o.position + a)].$xtlightbox.adaptor].load(this.elements[o.total + (o.position + a)]);
 				} else {
@@ -245,7 +248,12 @@ XtLightbox = new Class({
 		for (var i = this.adaptors.length; i--;) this.adaptors[i].destroy();
 		this.adaptors.empty();
 		this.renderer.destroy();
+		delete this.adaptors;
 		delete this.renderer;
+		$(document).removeEvents({
+			'keydown': this.onKeyPress,
+			'keypress': this.onKeyPress
+		});
 		this.fireEvent('destroy');
 		return null;
 	},
