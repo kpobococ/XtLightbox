@@ -7,7 +7,7 @@
     z-index: 1;
 }
 .xt-lightbox {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 2;
@@ -29,6 +29,8 @@
 }
 .xt-lightbox-content {
     position: relative;
+    min-width: 200px;
+    min-height: 100px;
 }
 .xt-lightbox.loading .xt-lightbox-content {
     background: url('./loading.gif') no-repeat 50% 50%;
