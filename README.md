@@ -159,6 +159,12 @@ Here is the list of all the supported events:
 Changelog
 ---------
 
+**Version 1.3**
+
+* Content now resizes to fit the screen (Issue #6);
+
+*NOTE:* Adaptor and Renderer API has been updated to support new feature. Default Renderer stylesheet has also been updated.
+
 **Version 1.2.2**
 
 * Fixed `incrementalPreLoad` option to use the correct adaptor for each element (credit to [thomasd](https://github.com/thomasd));

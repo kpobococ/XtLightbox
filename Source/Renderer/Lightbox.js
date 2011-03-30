@@ -72,6 +72,15 @@ XtLightbox.Renderer.Lightbox = new Class({
 		}));
 	},
 
+	destroy: function(){
+		delete this.fxWidth;
+		delete this.fxTop;
+		delete this.fxHeight;
+		delete this.fxContent;
+		delete this.fxFooter;
+		return this.parent();
+	},
+
 	inject: function(){
 		this.parent();
 		this.removeEvents('show').removeEvents('hide');
@@ -117,6 +126,7 @@ XtLightbox.Renderer.Lightbox = new Class({
 		this._cont = null;
 		this._fwopts = null;
         this.fxHeight.cancel();
+		this.fxTop.cancel();
         this.fxWidth.cancel();
         this.fxContent.cancel();
         this.fxFooter.cancel();
@@ -193,8 +203,11 @@ XtLightbox.Renderer.Lightbox = new Class({
                 width: elSize.x,
                 left: Math.round((winSize.x - elSize.x) / 2)
             };
-            this.fxHeight.start(size.y);
-            this.fxTop.start(Math.round((winSize.y - elSize.y) / 2));
+			if (size.y != this.elContent.getStyle('height').toInt()){
+				this.resizing = true;
+				this.fxHeight.start(size.y);
+				this.fxTop.start(Math.round((winSize.y - elSize.y) / 2));
+			} else this.onHeightChange();
 		} else {
 			// Reset size
 			size = size || {};
@@ -212,13 +225,17 @@ XtLightbox.Renderer.Lightbox = new Class({
 	},
 
 	onWidthChange: function(){
+		this.resizing = false;
 		this.elContent.grab(this._cont);
 		this.renderContent();
 		return this;
 	},
 
 	onHeightChange: function(){
-		this.fxWidth.start(this._fwopts);
+		if (this._fwopts.width != this.element.getStyle('width').toInt()) {
+			this.resizing = true;
+			this.fxWidth.start(this._fwopts);
+		} else this.onWidthChange();
 		return this;
 	},
 

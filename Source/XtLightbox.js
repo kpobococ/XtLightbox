@@ -50,35 +50,23 @@ XtLightbox = new Class({
 			e.preventDefault();
 			self.show(this);
 		};
-		$(document).addEvents({
-			'keydown': function(e){
-				if (this.shown){
-					if (this.options.closeKeys.contains(e.key)){
-						e.stop();
-						this.hide();
-					} else if (this.options.prevKeys.contains(e.key)){
-						e.stop();
-						this.previous();
-					} else if (this.options.nextKeys.contains(e.key)){
-						e.stop();
-						this.next();
-					}
-				}
-			}.bind(this),
-			'keypress': function(e){
-				if (this.shown){
-					if (this.options.closeKeys.contains(e.key)){
-						e.stop();
-						this.hide();
-					} else if (this.options.prevKeys.contains(e.key)){
-						e.stop();
-						this.previous();
-					} else if (this.options.nextKeys.contains(e.key)){
-						e.stop();
-						this.next();
-					}
+		this.onKeyPress = function(e){
+			if (self.shown){
+				if (self.options.closeKeys.contains(e.key)){
+					e.stop();
+					self.hide();
+				} else if (self.options.prevKeys.contains(e.key)){
+					e.stop();
+					self.previous();
+				} else if (self.options.nextKeys.contains(e.key)){
+					e.stop();
+					self.next();
 				}
 			}
+		};
+		$(document).addEvents({
+			'keydown': this.onKeyPress,
+			'keypress': this.onKeyPress
 		});
 		this.attach(elements);
 	},
@@ -260,7 +248,12 @@ XtLightbox = new Class({
 		for (var i = this.adaptors.length; i--;) this.adaptors[i].destroy();
 		this.adaptors.empty();
 		this.renderer.destroy();
+		delete this.adaptors;
 		delete this.renderer;
+		$(document).removeEvents({
+			'keydown': this.onKeyPress,
+			'keypress': this.onKeyPress
+		});
 		this.fireEvent('destroy');
 		return null;
 	},

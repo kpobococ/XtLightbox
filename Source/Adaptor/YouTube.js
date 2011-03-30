@@ -56,6 +56,16 @@ XtLightbox.Adaptor.YouTube = new Class({
 		};
 	},
 
+	setSize: function(element, size){
+		if (!XtLightbox.Adaptor.cached(element)) throw new Error('Element content must be loaded first');
+		var obj = $(XtLightbox.Adaptor.load(element));
+		obj.set({
+            width: size.x,
+            height: size.y
+        });
+		return this;
+	},
+
 	load: function(element, callback){
 		callback = callback || function(){};
 		if (XtLightbox.Adaptor.cached(element)){
