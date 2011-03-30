@@ -7,10 +7,9 @@
     z-index: 1;
 }
 .xt-lightbox {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
     z-index: 2;
 }
 .xt-lightbox .button {
@@ -21,16 +20,14 @@
 }
 .xt-lightbox-wrapper {
     background: #fff;
-    margin: auto;
     padding: 10px;
-    width: 200px;
+    margin: 10px;
     position: relative;
 }
 .xt-lightbox-content-wrapper {
     position: relative;
 }
 .xt-lightbox-content {
-    height: 100px;
     position: relative;
 }
 .xt-lightbox.loading .xt-lightbox-content {

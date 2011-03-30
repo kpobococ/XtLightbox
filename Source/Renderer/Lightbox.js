@@ -31,28 +31,20 @@ XtLightbox.Renderer.Lightbox = new Class({
 
 	create: function(){
 		this.parent();
-		this.fxWidth = new Fx.Tween(this.elWrapper, Object.merge({}, this.options.widthFxOptions, {
-			property: 'width',
-			onStart: function(){},
-			onCancel: function(){},
-			onComplete: function(){
-				this.onWidthChange();
-			}.bind(this)
-		}));
-		this.fxHeight = new Fx.Tween(this.elContent, Object.merge({}, this.options.heightFxOptions, {
-			property: 'height',
-			onStart: function(){},
-			onCancel: function(){},
-			onComplete: function(){
-				this.onHeightChange();
-			}.bind(this)
-		}));
-		this.fxTop = new Fx.Tween(this.element, Object.merge({}, this.options.heightFxOptions, {
-			property: 'top',
-			onStart: function(){},
-			onCancel: function(){},
-			onComplete: function(){}
-		}));
+                this.fxWidth = new Fx.Morph(this.element, Object.merge({}, this.options.widthFxOptions, {
+                    onStart: function(){},
+                    onCancel: function(){},
+                    onComplete: function(){
+                        this.onWidthChange();
+                    }.bind(this)
+                }));
+                this.fxHeight = new Fx.Morph(this.element, Object.merge({}, this.options.heightFxOptions, {
+                    onStart: function(){},
+                    onCancel: function(){},
+                    onComplete: function(){
+                        this.onHeightChange();
+                    }.bind(this)
+                }));
 		this.fxContent = new Fx.Tween(this.elContent, Object.merge({}, this.options.contentFxOptions, {
 			property: 'opacity',
 			onStart: function(){},
@@ -173,6 +165,7 @@ XtLightbox.Renderer.Lightbox = new Class({
 		if (!this.shown) this.show();
 		if (size && size.x && size.y){
 			var winY = window.getSize().y;
+                        this.elWrapper.setStyle('width', '');
 			this.elFooter.setStyles({
 				display: '',
 				height: ''
@@ -203,7 +196,7 @@ XtLightbox.Renderer.Lightbox = new Class({
 	},
 
 	onHeightChange: function(){
-		this.fxWidth.start(this.rX);
+		this.fxWidth.start(this._fwopts);
 		return this;
 	},
 
