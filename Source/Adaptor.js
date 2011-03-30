@@ -46,6 +46,10 @@ provides: [XtLightbox.Adaptor]
 			return {x: 0, y: 0};
 		},
 
+        setSize: function(element, size){
+            return this;
+        },
+
 		load: function(element, callback){
 			callback(element);
 			return this;
