@@ -116,7 +116,10 @@ XtLightbox.Renderer.Lightbox = new Class({
 		this._opts = {};
 		this._cont = null;
 		this._fwopts = null;
-		this.fxFooter.cancel();
+        this.fxHeight.cancel();
+        this.fxWidth.cancel();
+        this.fxContent.cancel();
+        this.fxFooter.cancel();
 		return this;
 	},
 
@@ -221,10 +224,6 @@ XtLightbox.Renderer.Lightbox = new Class({
 
 	reset: function(){
 		if (!this.injected) return this;
-		this.fxHeight.cancel();
-		this.fxWidth.cancel();
-		this.fxContent.cancel();
-		this.fxFooter.cancel();
 		this.resize();
 		this.empty();
 		this.elFooter.setStyle('display', 'none');
