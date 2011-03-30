@@ -9,7 +9,7 @@ license: MIT-style
 authors:
 - Anton Suprun <kpobococ@gmail.com>
 
-requires: [Core/Fx.Tween, XtLightbox.Renderer]
+requires: [Core/Fx.Tween, Core/Fx.Morph, XtLightbox.Renderer]
 
 provides: [XtLightbox.Renderer.Lightbox]
 
@@ -38,13 +38,20 @@ XtLightbox.Renderer.Lightbox = new Class({
                 this.onWidthChange();
             }.bind(this)
         }));
-        this.fxHeight = new Fx.Morph(this.element, Object.merge({}, this.options.heightFxOptions, {
+        this.fxTop = new Fx.Tween(this.element, Object.merge({}, this.options.heightFxOptions, {
+			property: 'top',
             onStart: function(){},
             onCancel: function(){},
-            onComplete: function(){
+            onComplete: function(){}
+        }));
+		this.fxHeight = new Fx.Tween(this.elContent, Object.merge({}, this.options.heightFxOptions, {
+			property: 'height',
+			onStart: function(){},
+			onCancel: function(){},
+			onComplete: function(){
                 this.onHeightChange();
             }.bind(this)
-        }));
+		}));
 		this.fxContent = new Fx.Tween(this.elContent, Object.merge({}, this.options.contentFxOptions, {
 			property: 'opacity',
 			onStart: function(){},
@@ -170,35 +177,30 @@ XtLightbox.Renderer.Lightbox = new Class({
 			});
             var elFull = this.element.getSize();
             var elBox = {
-                x: this.element.getStyle('width').toInt(),
-                y: this.element.getStyle('height').toInt()
+                x: this.elWrapper.getStyle('width').toInt(),
+                y: this.elWrapper.getStyle('height').toInt()
             };
+			var fY = this.elFooter.getSize().y;
             this.elFooter.setStyle('display', 'none');
             elSize = {
                 x: elFull.x - elBox.x + size.x,
-                y: elFull.y - elBox.y + size.y
+                y: elFull.y - elBox.y + size.y + fY
             };
             this._fwopts = {
                 width: elSize.x,
                 left: Math.round((winSize.x - elSize.x) / 2)
             };
-            this.fxHeight.start({
-                height: elSize.y,
-                top: Math.round((winSize.y - elSize.y) / 2)
-            });
+            this.fxHeight.start(size.y);
+            this.fxTop.start(Math.round((winSize.y - elSize.y) / 2));
 		} else {
 			// Reset size
 			size = size || {};
-            this.element.setStyles({
-                width: '',
-                height: ''
-            });
+            this.element.setStyle('width', size.x || '');
+			this.elContent.setStyle('height', size.y || '');
             this.elFooter.setStyle('display', '');
             elSize = this.element.getSize();
             this.elFooter.setStyle('display', 'none');
             this.element.setStyles({
-                width: size.x || '',
-                height: size.y || '',
                 left: Math.round((winSize.x - elSize.x) / 2),
                 top: Math.round((winSize.y - elSize.y) / 2)
             });
