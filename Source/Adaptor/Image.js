@@ -51,15 +51,15 @@ XtLightbox.Adaptor.Image = new Class({
 		};
 	},
 
-    setSize: function(element, size){
-        if (!XtLightbox.Adaptor.cached(element)) throw new Error('Element content must be loaded first');
-        var img = XtLightbox.Adaptor.load(element);
-        img.set({
-            width: size.x,
-            height: size.y
-        });
-        return this;
-    },
+	setSize: function(element, size){
+		if (!XtLightbox.Adaptor.cached(element)) throw new Error('Element content must be loaded first');
+		var img = XtLightbox.Adaptor.load(element);
+		img.set({
+			width: size.x,
+			height: size.y
+		});
+		return this;
+	},
 
 	load: function(element, callback){
 		callback = callback || function(){};
@@ -78,5 +78,4 @@ XtLightbox.Adaptor.Image = new Class({
 		});
 		return this;
 	}
-	
 });
