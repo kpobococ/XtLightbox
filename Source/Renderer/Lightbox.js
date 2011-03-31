@@ -26,31 +26,31 @@ XtLightbox.Renderer.Lightbox = new Class({
 		heightFxOptions: {},
 		contentFxOptions: {},
 		footerFxOptions: {},
-		hideArrowsFor: ['YouTube']
+		hideArrowsFor: ['YouTube', 'Vimeo']
 	},
 
 	create: function(){
 		this.parent();
-        this.fxWidth = new Fx.Morph(this.element, Object.merge({}, this.options.widthFxOptions, {
-            onStart: function(){},
-            onCancel: function(){},
-            onComplete: function(){
-                this.onWidthChange();
-            }.bind(this)
-        }));
-        this.fxTop = new Fx.Tween(this.element, Object.merge({}, this.options.heightFxOptions, {
+		this.fxWidth = new Fx.Morph(this.element, Object.merge({}, this.options.widthFxOptions, {
+			onStart: function(){},
+			onCancel: function(){},
+			onComplete: function(){
+				this.onWidthChange();
+			}.bind(this)
+		}));
+		this.fxTop = new Fx.Tween(this.element, Object.merge({}, this.options.heightFxOptions, {
 			property: 'top',
-            onStart: function(){},
-            onCancel: function(){},
-            onComplete: function(){}
-        }));
+			onStart: function(){},
+			onCancel: function(){},
+			onComplete: function(){}
+		}));
 		this.fxHeight = new Fx.Tween(this.elContent, Object.merge({}, this.options.heightFxOptions, {
 			property: 'height',
 			onStart: function(){},
 			onCancel: function(){},
 			onComplete: function(){
-                this.onHeightChange();
-            }.bind(this)
+				this.onHeightChange();
+			}.bind(this)
 		}));
 		this.fxContent = new Fx.Tween(this.elContent, Object.merge({}, this.options.contentFxOptions, {
 			property: 'opacity',
@@ -125,11 +125,11 @@ XtLightbox.Renderer.Lightbox = new Class({
 		this._opts = {};
 		this._cont = null;
 		this._fwopts = null;
-        this.fxHeight.cancel();
+		this.fxHeight.cancel();
 		this.fxTop.cancel();
-        this.fxWidth.cancel();
-        this.fxContent.cancel();
-        this.fxFooter.cancel();
+		this.fxWidth.cancel();
+		this.fxContent.cancel();
+		this.fxFooter.cancel();
 		return this;
 	},
 
@@ -182,27 +182,27 @@ XtLightbox.Renderer.Lightbox = new Class({
 
 	resize: function(size){
 		if (!this.shown) this.show();
-        var winSize = window.getSize(), elSize;
-        if (size && size.x && size.y){
-            this.elFooter.setStyles({
-                display: '',
-                height: ''
+		var winSize = window.getSize(), elSize;
+		if (size && size.x && size.y){
+			this.elFooter.setStyles({
+				display: '',
+				height: ''
 			});
-            var elFull = this.element.getSize();
-            var elBox = {
-                x: this.elWrapper.getStyle('width').toInt(),
-                y: this.elWrapper.getStyle('height').toInt()
-            };
+			var elFull = this.element.getSize();
+			var elBox = {
+				x: this.elWrapper.getStyle('width').toInt(),
+				y: this.elWrapper.getStyle('height').toInt()
+			};
 			var fY = this.elFooter.getSize().y;
-            this.elFooter.setStyle('display', 'none');
-            elSize = {
-                x: elFull.x - elBox.x + size.x,
-                y: elFull.y - elBox.y + size.y + fY
-            };
-            this._fwopts = {
-                width: elSize.x,
-                left: Math.round((winSize.x - elSize.x) / 2)
-            };
+			this.elFooter.setStyle('display', 'none');
+			elSize = {
+				x: elFull.x - elBox.x + size.x,
+				y: elFull.y - elBox.y + size.y + fY
+			};
+			this._fwopts = {
+				width: elSize.x,
+				left: Math.round((winSize.x - elSize.x) / 2)
+			};
 			if (size.y != this.elContent.getStyle('height').toInt()){
 				this.resizing = true;
 				this.fxHeight.start(size.y);
@@ -211,15 +211,15 @@ XtLightbox.Renderer.Lightbox = new Class({
 		} else {
 			// Reset size
 			size = size || {};
-            this.element.setStyle('width', size.x || '');
+			this.element.setStyle('width', size.x || '');
 			this.elContent.setStyle('height', size.y || '');
-            this.elFooter.setStyle('display', '');
-            elSize = this.element.getSize();
-            this.elFooter.setStyle('display', 'none');
-            this.element.setStyles({
-                left: Math.round((winSize.x - elSize.x) / 2),
-                top: Math.round((winSize.y - elSize.y) / 2)
-            });
+			this.elFooter.setStyle('display', '');
+			elSize = this.element.getSize();
+			this.elFooter.setStyle('display', 'none');
+			this.element.setStyles({
+				left: Math.round((winSize.x - elSize.x) / 2),
+				top: Math.round((winSize.y - elSize.y) / 2)
+			});
 		}
 		return this;
 	},

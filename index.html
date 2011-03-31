@@ -15,6 +15,7 @@
         <script type="text/javascript" src="./Source/Renderer.js"></script>
         <script type="text/javascript" src="./Source/Adaptor/Image.js"></script>
         <script type="text/javascript" src="./Source/Adaptor/YouTube.js"></script>
+        <script type="text/javascript" src="./Source/Adaptor/Vimeo.js"></script>
         <script type="text/javascript" src="./Source/Renderer/Lightbox.js"></script>
         <link rel="stylesheet" type="text/css" href="./Source/Renderer/Lightbox/style.css" />
         <script type="text/javascript">
@@ -29,6 +30,17 @@
                 });
                 new XtLightbox('.gallery.video > a', {
                     adaptors: ['YouTube'],
+                    adaptorOptions: {
+                        YouTube: {
+                            iframe: true
+                        }
+                    },
+                    rendererOptions: {
+                        positionText: 'Video {x} of {total}. Use arrows on your keyboard to navigate'
+                    }
+                });
+                new XtLightbox('.gallery.vimeo > a', {
+                    adaptors: ['Vimeo'],
                     rendererOptions: {
                         positionText: 'Video {x} of {total}. Use arrows on your keyboard to navigate'
                     }
@@ -214,6 +226,59 @@
                             automatically played upon show. Defaults to
                             <code>true</code>
                         </li>
+                        <li>
+                            <code>iframe</code>: if true, newer iframe embed
+                            code will be used. Defaults to <code>false</code>
+                        </li>
+                    </ul>
+                    <h4 id="configuration-adaptor-vimeo">Adaptor: Vimeo</h4>
+                    <ul>
+                        <li>
+                            <code>width</code>: the width of the video. Defaults
+                            to <code>800</code>
+                        </li>
+                        <li>
+                            <code>height</code>: the height of the video.
+                            Defaults to <code>450</code>
+                        </li>
+                        <li>
+                            <code>title</code>: if true, the title of the video
+                            will be shown inside the video. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>byline</code>: if true, the author of the
+                            video will be shown inside the video. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>portrait</code>: if true, the author portrait
+                            will be shown inside the video. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>color</code>: interface color, value must be a
+                            hex rgb without the hash symbol. Defaults to
+                            <code>'00adef'</code>
+                        </li>
+                        <li>
+                            <code>autoplay</code>: if true, the video will be
+                            automatically played upon show. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>autoplay</code>: if true, the video will be
+                            automatically played upon show. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>loop</code>: if true, the video playback will
+                            be looped. Defaults to <code>false</code>
+                        </li>
+                        <li>
+                            <code>iframe</code>: if true, newer iframe embed
+                            code will be used. Defaults to <code>true</code>
+                        </li>
                     </ul>
                     <h4 id="configuration-renderer">Renderer</h4>
                     <ul>
@@ -360,6 +425,16 @@ xtl.attach($$('.my-collection'));</code></pre>
                         </li>
                     </ul>
 
+                    <h2 id="download">Download</h2>
+                    <p>
+                        You can download the latest version of XtLightbox from
+                        any one of these locations:
+                    </p>
+                    <ul>
+                        <li><a href="http://github.com/kpobococ/XtLightbox">XtLightbox on github</a></li>
+                        <li><a href="http://mootools.net/forge/p/xtlightbox">XtLightbox on MooTools Forge</a></li>
+                    </ul>
+
                     <h2 id="demos">Demos</h2>
                     <h4 id="demos-image-gallery">Small image gallery</h4>
                     <p>
@@ -455,6 +530,40 @@ xtl.attach($$('.my-collection'));</code></pre>
                         </a>
                         <div class="clear"></div>
                     </div>
+                    <h4 id="demos-vimeo-gallery">Vimeo video gallery</h4>
+                    <p>
+                        This is an example of the newest Vimeo adaptor in action.
+                        The video is one of the Staff Picks from Vimeo.
+                    </p>
+                    <pre><code class="html">&lt;div class=&quot;gallery vimeo&quot;&gt;
+    &lt;a href=&quot;http://vimeo.com/21504557&quot; title=&quot;Dogboarding&quot;&gt;
+        &lt;img src=&quot;./images/vimeo-dogboarding.jpg&quot; alt=&quot;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    <p>
+                        And initialization - load Vimeo adaptor, change position
+                        text - almost identical to YouTube. We could've just as
+                        well used these two adaptors together to create a
+                        combined video gallery:
+                    </p>
+                    <pre><code class="js">window.addEvent('domready', function() {
+    new XtLightbox('.gallery.vimeo > a', {
+        adaptors: ['Vimeo'],
+        rendererOptions: {
+            positionText: 'Video {x} of {total}. Use arrows on your keyboard to navigate'
+        }
+    });
+});</code></pre>
+                    <p>
+                        And here's what you get:
+                    </p>
+                    <div class="gallery vimeo">
+                        <a href="http://vimeo.com/21504557" title="Dogboarding">
+                            <img src="./images/vimeo-dogboarding.jpg" alt="" />
+                        </a>
+                        <div class="clear"></div>
+                    </div>
                 </div>
             </div>
 
@@ -478,6 +587,9 @@ xtl.attach($$('.my-collection'));</code></pre>
                                     <a href="#configuration-adaptor-youtube">Adaptor: YouTube</a>
                                 </li>
                                 <li>
+                                    <a href="#configuration-adaptor-vimeo">Adaptor: Vimeo</a>
+                                </li>
+                                <li>
                                     <a href="#configuration-renderer">Renderer</a>
                                 </li>
                                 <li>
@@ -495,6 +607,9 @@ xtl.attach($$('.my-collection'));</code></pre>
                             <a href="#events">Events</a>
                         </li>
                         <li>
+                            <a href="#download">Download</a>
+                        </li>
+                        <li>
                             <a href="#demos">Demos</a>
                             <ol>
                                 <li>
@@ -503,23 +618,15 @@ xtl.attach($$('.my-collection'));</code></pre>
                                 <li>
                                     <a href="#demos-video-gallery">Videos gallery</a>
                                 </li>
+                                <li>
+                                    <a href="#demos-vimeo-gallery">Vimeo video gallery</a>
+                                </li>
                             </ol>
                         </li>
                     </ol>
                     <p>
                         <a href="#">Back to top</a>
                     </p>
-                </div>
-                <div class="wrapper">
-                    <h2>Download Links</h2>
-                    <p>
-                        You can download the latest version of XtLightbox from
-                        any one of these locations:
-                    </p>
-                    <ul>
-                        <li><a href="http://github.com/kpobococ/XtLightbox">XtLightbox on github</a></li>
-                        <li><a href="http://mootools.net/forge/p/xtlightbox">XtLightbox on MooTools Forge</a></li>
-                    </ul>
                 </div>
             </div>
 
