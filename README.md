@@ -4,8 +4,8 @@ XtLightbox
 XtLightbox stands for extendable lightbox. It allows for easy extension of any
 kind. It is divided into three parts: Adaptors, Renderers and Base.
 
-Adaptors control the contents of the lightbox. There are two Adaptors already
-included: Image and YouTube. You can easily write more adaptors to embed anything
+Adaptors control the contents of the lightbox. There are three Adaptors already
+included: Image, YouTube and Vimeo. You can easily write more adaptors to embed anything
 into the lightbox.
 
 Renderers control how the lightbox is rendered and how the elements are positioned.
@@ -83,6 +83,19 @@ options. Here are the options, available so far:
 * `fullscreen`: if true, a fullscreen button will be available for all videos. Defaults to `true`.
 * `related`: if true, related videos feature is included. Defaults to `false`.
 * `autoplay`: if true, the video will be automatically played upon show. Defaults to `true`.
+* `iframe`: if true, newer iframe embed code will be used. Defaults to `false`.
+
+**Adaptor: Vimeo**
+
+* `width`: the width of the video. Defaults to `800`.
+* `height`: the height of the video. Defaults to `450`.
+* `title`: if true, the title of the video will be shown inside the video. Defaults to `true`.
+* `byline`: if true, the author of the video will be shown inside the video. Defaults to `true`.
+* `portrait`: if true, the author portrait will be shown inside the video. Defaults to `true`.
+* `color`: interface color, value must be a hex rgb without the hash symbol. Defaults to `'00adef'`.
+* `autoplay`: if true, the video will be automatically played upon show. Defaults to `true`.
+* `loop`: if true, the video playback will be looped. Defaults to `false`.
+* `iframe`: if true, newer iframe embed code will be used. Defaults to `true`.
 
 **Renderer**
 
@@ -99,7 +112,7 @@ options. Here are the options, available so far:
 * `heightFxOptions`: additional options for the Fx.Tween, that is used to adjust lightbox height. Also used to adjust the `top` value.
 * `contentFxOptions`: additional options for the Fx.Tween, that is used to reveal the content of the lightbox.
 * `footerFxOptions`: additional options for the Fx.Tween, that is used to reveal the footer (content title and position) of the lightbox.
-* `hideArrowsFor`: see Renderer options for details. Default value changed to `['YouTube']` for this Renderer.
+* `hideArrowsFor`: see Renderer options for details. Default value changed to `['YouTube', 'Vimeo']` for this Renderer.
 
 Setting Adaptor and Renderer options
 ------------------------------------
@@ -158,6 +171,12 @@ Here is the list of all the supported events:
 
 Changelog
 ---------
+
+**Version 1.3.1**
+
+* Added Vimeo Adaptor;
+* Added iframe option to YouTube Adaptor;
+* Added Vimeo Adaptor to the Lightbox Renderer's default hideArrowsFor option value;
 
 **Version 1.3**
 

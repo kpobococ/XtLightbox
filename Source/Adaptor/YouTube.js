@@ -28,12 +28,13 @@ XtLightbox.Adaptor.YouTube = new Class({
 		hd: true,
 		fullscreen: false,
 		related: false,
-		autoplay: true
+		autoplay: true,
+		iframe: false
 	},
 
 	check: function(element){
 		var l = /http:\/\/(?:www\.)?youtube.com\/watch\?(?:\S+=\S*&)*v=([-a-z0-9_]+)(?:&|$)/i,
-			s = /http:\/\/(?:www\.)?youtu.be\/([-a-z0-9_]+)$/i;
+		s = /http:\/\/(?:www\.)?youtu.be\/([-a-z0-9_]+)$/i;
 		var r = l.exec(element.href);
 		if (!r) r = s.exec(element.href);
 		if (r){
@@ -59,10 +60,13 @@ XtLightbox.Adaptor.YouTube = new Class({
 	setSize: function(element, size){
 		if (!XtLightbox.Adaptor.cached(element)) throw new Error('Element content must be loaded first');
 		var obj = $(XtLightbox.Adaptor.load(element));
-		obj.set({
-            width: size.x,
-            height: size.y
-        });
+		if (!obj.set){
+			obj.width = size.x;
+			obj.height = size.y;
+		} else obj.set({
+			width: size.x,
+			height: size.y
+		});
 		return this;
 	},
 
@@ -73,7 +77,7 @@ XtLightbox.Adaptor.YouTube = new Class({
 			return this;
 		}
 		var params = {};
-		// params.wmode = 'transparent';
+		if (this.options.iframe) params.wmode = 'transparent';
 		if (this.options.fullscreen) params.fs = '1';
 		if (!this.options.related) params.rel = '0';
 		if (this.options.hd) params.hd = '1';
@@ -84,7 +88,16 @@ XtLightbox.Adaptor.YouTube = new Class({
 			a.push(p + '=' + params[p]);
 		}
 		params = a.join('&');
-		XtLightbox.Adaptor.cache(element, new Swiff('http://www.youtube.com/v/' + element.$xtlightbox.YouTubeId + '?' + params, {
+		var obj;
+		if (this.options.iframe) obj = new Element('iframe', {
+			title: "YouTube video player",
+			width: this.options.width,
+			height: this.options.height,
+			src: 'http://www.youtube.com/v/' + element.$xtlightbox.YouTubeId + '?' + params,
+			frameborder: 0,
+			allowfullscreen: ''
+		});
+		else obj = new Swiff('http://www.youtube.com/v/' + element.$xtlightbox.YouTubeId + '?' + params, {
 			width: this.options.width,
 			height: this.options.height,
 			params: {
@@ -92,9 +105,9 @@ XtLightbox.Adaptor.YouTube = new Class({
 				wMode: 'transparent',
 				bgcolor: '#ff3300'
 			}
-		}));
+		});
+		XtLightbox.Adaptor.cache(element, obj);
 		callback(element);
 		return this;
 	}
-
 });

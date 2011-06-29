@@ -161,27 +161,27 @@ XtLightbox = new Class({
 			if (this.options.loop || o.position > 1) o.prev = true;
 			if (this.options.loop || o.position < o.total) o.next = true;
 
-            // max content size may depend on title size
-            var maxSize = this.renderer.getMaxSize(o);
-            o.size = adaptor.getSize(el);
+			// max content size may depend on title size
+			var maxSize = this.renderer.getMaxSize(o);
+			o.size = adaptor.getSize(el);
 
-            // check if max size is exceeded
-            if (maxSize.x < o.size.x){
-                o.size.y = Math.round(maxSize.x * o.size.y / o.size.x);
-                o.size.x = maxSize.x;
-            }
-            if (maxSize.y < o.size.y){
-                o.size.x = Math.round(o.size.x * maxSize.y / o.size.y);
-                o.size.y = maxSize.y;
-            }
-            adaptor.setSize(el, o.size);
-            var c = adaptor.getContent(el);
+			// check if max size is exceeded
+			if (maxSize.x < o.size.x){
+				o.size.y = Math.round(maxSize.x * o.size.y / o.size.x);
+				o.size.x = maxSize.x;
+			}
+			if (maxSize.y < o.size.y){
+				o.size.x = Math.round(o.size.x * maxSize.y / o.size.y);
+				o.size.y = maxSize.y;
+			}
+			adaptor.setSize(el, o.size);
+			var c = adaptor.getContent(el);
 			this.renderer.render(c, o);
 			
 			// at this point we are done loading the image; optionally 'incremenetally' preload
 			// note that the incremental preload functionality will preload backwards & forwards
 
-                        var a;
+						var a;
 			for (a = 0; a < this.options.incrementalPreLoad; a++){
 				if (o.position + a < o.total){
 					this.adaptors[this.elements[o.position + a].$xtlightbox.adaptor].load(this.elements[o.position + a]);
