@@ -50,23 +50,28 @@ XtLightbox = new Class({
 			e.preventDefault();
 			self.show(this);
 		};
-		this.onKeyPress = function(e){
-			if (self.shown){
-				if (self.options.closeKeys.contains(e.key)){
-					e.stop();
-					self.hide();
-				} else if (self.options.prevKeys.contains(e.key)){
-					e.stop();
-					self.previous();
-				} else if (self.options.nextKeys.contains(e.key)){
-					e.stop();
-					self.next();
-				}
-			}
-		};
 		$(document).addEvents({
-			'keydown': this.onKeyPress,
-			'keypress': this.onKeyPress
+			'keydown': function(e){
+                if (self.shown){
+                    if (self.options.closeKeys.contains(e.key)){
+                        e.stop();
+                        self.hide();
+                    } else if (self.options.prevKeys.contains(e.key)){
+                        e.stop();
+                        self.previous();
+                    } else if (self.options.nextKeys.contains(e.key)){
+                        e.stop();
+                        self.next();
+                    }
+                }
+            },
+			'keypress': function(e){
+                if (!self.shown) return;
+                // This stops browser default actions for bound keys
+                if (self.options.closeKeys.contains(e.key)) e.stop();
+                else if (self.options.prevKeys.contains(e.key)) e.stop();
+                else if (self.options.nextKeys.contains(e.key)) e.stop();
+            }
 		});
 		this.attach(elements);
 	},
