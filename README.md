@@ -172,6 +172,10 @@ Here is the list of all the supported events:
 Changelog
 ---------
 
+**Version 1.3.2**
+
+* Fixed image skipping when navigating with keyboard (Issue #12);
+
 **Version 1.3.1**
 
 * Added Vimeo Adaptor;

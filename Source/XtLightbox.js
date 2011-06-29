@@ -9,7 +9,7 @@ license: MIT-style
 authors:
 - Anton Suprun <kpobococ@gmail.com>
 
-requires: [Core/Class.Extras, Core/Element]
+requires: [Core/1.3:Class.Extras, Core/1.3:Element]
 
 provides: [XtLightbox]
 
