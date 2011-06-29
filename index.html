@@ -1,197 +1,635 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>XtLightbox - Extendable Lightbox</title>
-    <link rel="stylesheet" type="text/css" href="./styles/main.css" />
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.0/mootools-yui-compressed.js"></script>
-    <script type="text/javascript" src="./scripts/mootools-more.js"></script>
-    <script type="text/javascript" src="./Source/XtLightbox.js"></script>
-    <script type="text/javascript" src="./Source/Adaptor.js"></script>
-    <script type="text/javascript" src="./Source/Renderer.js"></script>
-    <script type="text/javascript" src="./Source/Adaptor/Image.js"></script>
-    <script type="text/javascript" src="./Source/Adaptor/YouTube.js"></script>
-    <script type="text/javascript" src="./Source/Renderer/Lightbox.js"></script>
-    <link rel="stylesheet" type="text/css" href="./Source/Renderer/Lightbox/style.css" />
-    <script type="text/javascript">
-        window.addEvent('domready', function() {
-            new XtLightbox('.gallery a', {
-                loop: true,
-                adaptorOptions: {
-                    Image: {
-                        lightboxCompat: false
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>XtLightbox - Extendable Lightbox for MooTools</title>
+        <link rel="stylesheet" type="text/css" href="./styles/main.css" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/mootools/1.3/mootools-yui-compressed.js"></script>
+        <script type="text/javascript" src="./scripts/Lighter.js"></script>
+        <script type="text/javascript" src="./scripts/Fuel.html.js"></script>
+        <script type="text/javascript" src="./scripts/Fuel.js.js"></script>
+        <script type="text/javascript" src="./scripts/mootools-more.js"></script>
+        <script type="text/javascript" src="./Source/XtLightbox.js"></script>
+        <script type="text/javascript" src="./Source/Adaptor.js"></script>
+        <script type="text/javascript" src="./Source/Renderer.js"></script>
+        <script type="text/javascript" src="./Source/Adaptor/Image.js"></script>
+        <script type="text/javascript" src="./Source/Adaptor/YouTube.js"></script>
+        <script type="text/javascript" src="./Source/Adaptor/Vimeo.js"></script>
+        <script type="text/javascript" src="./Source/Renderer/Lightbox.js"></script>
+        <link rel="stylesheet" type="text/css" href="./Source/Renderer/Lightbox/style.css" />
+        <script type="text/javascript">
+            window.addEvent('domready', function() {
+                new XtLightbox('.gallery.photo > a', {
+                    loop: true,
+                    adaptorOptions: {
+                        Image: {
+                            lightboxCompat: false
+                        }
                     }
-                }
+                });
+                new XtLightbox('.gallery.video > a', {
+                    adaptors: ['YouTube'],
+                    adaptorOptions: {
+                        YouTube: {
+                            iframe: true
+                        }
+                    },
+                    rendererOptions: {
+                        positionText: 'Video {x} of {total}. Use arrows on your keyboard to navigate'
+                    }
+                });
+                new XtLightbox('.gallery.vimeo > a', {
+                    adaptors: ['Vimeo'],
+                    rendererOptions: {
+                        positionText: 'Video {x} of {total}. Use arrows on your keyboard to navigate'
+                    }
+                });
+                $$('pre > code').each(function(el) {
+                    new Lighter(el, {
+                        clipboard: true,
+                        container: el.getParent(),
+                        mode: 'pre'
+                    });
+                });
             });
-        });
-    </script>
-  </head>
-  <body>
-      <div class="gallery">
-          <a href="./images/fruit-1.jpg" title="Some fruit">
-              <img src="./images/small-fruit-1.jpg" alt="" />
-          </a>
-          <a href="./images/fruit-2.jpg" title="Some more fruit">
-              <img src="./images/small-fruit-2.jpg" alt="" />
-          </a>
-          <a href="./images/fruit-3.gif" title="Even more fruit">
-              <img src="./images/small-fruit-3.jpg" alt="" />
-          </a>
-      </div>
-<!--
-    XtLightbox
-===========
+        </script>
+    </head>
+    <body>
+        <div id="global-wrapper" class="wrapper">
 
-XtLightbox stands for extendable lightbox. It allows for easy extension of any
-kind. It is divided into three parts: Adaptors, Renderers and Base.
+            <div class="header">
+                <span class="logo"><span>XtLightbox</span></span>
+            </div>
 
-Adaptors control the contents of the lightbox. There are two Adaptors already
-included: Image and YouTube. You can easily write more adaptors to embed anything
-into the lightbox.
+            <div class="article">
+                <div class="wrapper">
 
-Renderers control how the lightbox is rendered and how the elements are positioned.
-Currently only the default lightbox Renderer is included by default. Creating a
-custom renderer allows you to completely tweak the look and feel of your lightbox.
+                    <h1>Extendable Lightbox for MooTools</h1>
+                    <p>
+                        XtLightbox stands for extendable lightbox. It allows for
+                        easy extension of any kind. It is divided into three
+                        parts: Adaptors, Renderers and Base.
+                    </p>
+                    <p>
+                        Adaptors control the contents of the lightbox. There are
+                        two Adaptors already included: Image and YouTube. You can
+                        easily write more adaptors to embed anything into the
+                        lightbox.
+                    </p>
+                    <p>
+                        Renderers control how the lightbox is rendered and how the
+                        elements are positioned. Currently only the default
+                        lightbox Renderer is included by default. Creating a
+                        custom renderer allows you to completely tweak the look
+                        and feel of your lightbox.
+                    </p>
+                    <p>
+                        Base puts everything together.
+                    </p>
 
-Base puts everything together.
+                    <h2 id="how-to-use">How to use</h2>
+                    <p>
+                        Include everything you need into your document:
+                    </p>
+                    <pre><code class="html">&lt;!-- Base --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/XtLightbox/XtLightbox.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Adaptors --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/XtLightbox/Adaptor.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/XtLightbox/Adaptor/Image.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Renderers --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/XtLightbox/Renderer.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/XtLightbox/Renderer/Lightbox.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Renderer styles --&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/XtLightbox/Renderer/Lightbox/style.css&quot; /&gt;</code></pre>
+                    <p>
+                        Create a collection of elements:
+                    </p>
+                    <pre><code class="html">&lt;div class=&quot;xtlightbox-gallery&quot;&gt;
+    &lt;a href=&quot;/images/image1.jpg&quot; title=&quot;Image 1&quot;&gt;Image 1&lt;/a&gt;
+    &lt;a href=&quot;/images/image2.jpg&quot; title=&quot;Image 2&quot;&gt;Image 2&lt;/a&gt;
+    &lt;a href=&quot;/images/image3.jpg&quot; title=&quot;Image 3&quot;&gt;Image 3&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+                    <p>
+                        Initialize the lightbox:
+                    </p>
+                    <pre><code class="js">window.addEvent('domready', function() {
+    new XtLightbox('.xtlightbox-gallery a');
+});</code></pre>
 
-![Screenshot](http://url_to_project_screenshot)
+                    <h2 id="configuration">Configuration</h2>
+                    <p>
+                        XtLightbox has several levels of configuration: Base
+                        config, Renderer config and Adaptor config (on a
+                        per-adaptor basis). All of the options are passed to the
+                        Base class. Each adaptor and renderer can introduce any
+                        number of additional options. Here are the options,
+                        available so far:
+                    </p>
+                    <h4 id="configuration-xtlightbox">XtLightbox</h4>
+                    <ul>
+                        <li>
+                            <code>adaptors</code>: an array of adaptor names to
+                            be used with this instance. Defaults to
+                            <code>['Image']</code>
+                        </li>
+                        <li>
+                            <code>adaptorOptions</code>: additional adaptor
+                            configuration. See below.
+                        </li>
+                        <li>
+                            <code>renderer</code>: a name of a renderer to use
+                            with this instance. Defaults to
+                            <code>'Lightbox'</code>
+                        </li>
+                        <li>
+                            <code>rendererOptions</code>: additional renderer
+                            configuration. See below.
+                        </li>
+                        <li>
+                            <code>preload</code>: if true, all the content will
+                            be preloaded as soon as the lightbox is initialized.
+                            Defaults to <code>false</code>
+                        </li>
+                        <li>
+                            <code>incrementalPreLoad</code>: if greater than
+                            zero, incrementally preloads this many content items
+                            before and after the current. Does not depend on
+                            <code>preload</code> option. Defaults to <code>3</code>
+                        </li>
+                        <li>
+                            <code>loop</code>: if true, clicking next while on
+                            the last element in the collection will move the
+                            user to the first element in the collection and
+                            vice-versa. Defaults to <code>false</code>
+                        </li>
+                        <li>
+                            <code>closeKeys</code>: an array of key names,
+                            pressing which should trigger the lightbox to close.
+                            Defaults to <code>['esc']</code>
+                        </li>
+                        <li>
+                            <code>nextKeys</code>: an array of key names,
+                            pressing which should trigger the lightbox to show
+                            next image. Defaults to <code>['right', 'space']</code>
+                        </li>
+                        <li>
+                            <code>prevKeys</code>: an array of key names,
+                            pressing which should trigger the lightbox to show
+                            previous image. Defaults to <code>['left']</code>
+                        </li>
+                    </ul>
+                    <h4 id="configuration-adaptor-image">Adaptor: Image</h4>
+                    <ul>
+                        <li>
+                            <code>extensions</code>: an array of file extensions
+                            to treat as images. If 'jpg' is present in this
+                            array, the 'jpeg' extension is added automatically.
+                            Any hrefs that do not end in these extensions are
+                            skipped by the lightbox. Defaults to
+                            <code>['jpg', 'png', 'gif']</code>
+                        </li>
+                        <li>
+                            <code>lightboxCompat</code>: if true, elements will
+                            be checked for having their <code>rel</code>
+                            attribute start with <code>'lighbox'</code> instead
+                            of checking for their extensions. Defaults to
+                            <code>true</code>
+                        </li>
+                    </ul>
+                    <h4 id="configuration-adaptor-youtube">Adaptor: YouTube</h4>
+                    <ul>
+                        <li>
+                            <code>width</code>: the width of the video. Defaults
+                            to <code>853</code>
+                        </li>
+                        <li>
+                            <code>height</code>: the height of the video.
+                            Defaults to <code>505</code>
+                        </li>
+                        <li>
+                            <code>hd</code>: if true, all the movies are loaded
+                            in HD quality, if available. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>fullscreen</code>: if true, a fullscreen
+                            button will be available for all videos. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>related</code>: if true, related videos
+                            feature is included. Defaults to <code>false</code>
+                        </li>
+                        <li>
+                            <code>autoplay</code>: if true, the video will be
+                            automatically played upon show. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>iframe</code>: if true, newer iframe embed
+                            code will be used. Defaults to <code>false</code>
+                        </li>
+                    </ul>
+                    <h4 id="configuration-adaptor-vimeo">Adaptor: Vimeo</h4>
+                    <ul>
+                        <li>
+                            <code>width</code>: the width of the video. Defaults
+                            to <code>800</code>
+                        </li>
+                        <li>
+                            <code>height</code>: the height of the video.
+                            Defaults to <code>450</code>
+                        </li>
+                        <li>
+                            <code>title</code>: if true, the title of the video
+                            will be shown inside the video. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>byline</code>: if true, the author of the
+                            video will be shown inside the video. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>portrait</code>: if true, the author portrait
+                            will be shown inside the video. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>color</code>: interface color, value must be a
+                            hex rgb without the hash symbol. Defaults to
+                            <code>'00adef'</code>
+                        </li>
+                        <li>
+                            <code>autoplay</code>: if true, the video will be
+                            automatically played upon show. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>autoplay</code>: if true, the video will be
+                            automatically played upon show. Defaults to
+                            <code>true</code>
+                        </li>
+                        <li>
+                            <code>loop</code>: if true, the video playback will
+                            be looped. Defaults to <code>false</code>
+                        </li>
+                        <li>
+                            <code>iframe</code>: if true, newer iframe embed
+                            code will be used. Defaults to <code>true</code>
+                        </li>
+                    </ul>
+                    <h4 id="configuration-renderer">Renderer</h4>
+                    <ul>
+                        <li>
+                            <code>positionText></code>: Used to specify a custom
+                            "Image x of y" string. Defaults to
+                            <code>'Image {x} of {total}'</code>
+                        </li>
+                        <li>
+                            <code>useMask</code>: if true, the Mask class from
+                            MooTools more will be used when showing
+                            lightbox. Defaults to <code>true</code>
+                        </li>
+                        <li>
+                            <code>maskOptions</code>: additional Mask options
+                        </li>
+                        <li>
+                            <code>hideArrowsFor</code>: an array of adaptor
+                            names, the contents for which should not have the
+                            next/previous overlays. Defaults to empty array
+                        </li>
+                        <li>
+                            <code>hideSinglePosition</code>: if true,
+                            positionText will be hidden for single image
+                            collections. Defaults to <code>true</code>
+                        </li>
+                    </ul>
+                    <h4 id="configuration-renderer-lightbox">Renderer: Lightbox</h4>
+                    <ul>
+                        <li>
+                            <code>maskFxOptions</code>: additional options for
+                            the Mask's Fx.Tween instance
+                        </li>
+                        <li>
+                            <code>widthFxOptions</code>: additional options for
+                            the Fx.Tween, that is used to adjust lightbox width
+                        </li>
+                        <li>
+                            <code>heightFxOptions</code>: additional options for
+                            the Fx.Tween, that is used to adjust lightbox
+                            height. Also used to adjust the top value
+                        </li>
+                        <li>
+                            <code>contentFxOptions</code>: additional options
+                            for the Fx.Tween, that is used to reveal the content
+                            of the lightbox
+                        </li>
+                        <li>
+                            <code>footerFxOptions</code>: additional options for
+                            the Fx.Tween, that is used to reveal the footer
+                            (content title and position) of the lightbox
+                        </li>
+                        <li>
+                            <code>hideArrowsFor</code>: see Renderer options for
+                            details. Default value changed to
+                            <code>['YouTube']</code> for this Renderer
+                        </li>
+                    </ul>
 
-How to use
-----------
-
-1. Include everything you need into your document:
-
-    #HTML
-    <!-- Base --
-    <script type="text/javascript" src="/XtLightbox/XtLightbox.js"></script>
-    <!-- Adaptors --
-    <script type="text/javascript" src="/XtLightbox/Adaptor.js"></script>
-    <script type="text/javascript" src="/XtLightbox/Adaptor/Image.js"></script>
-    <!-- Renderers --
-    <script type="text/javascript" src="/XtLightbox/Renderer.js"></script>
-    <script type="text/javascript" src="/XtLightbox/Renderer/Lightbox.js"></script>
-    <!-- Renderer styles --
-    <link rel="stylesheet" type="text/css" href="/XtLightbox/Renderer/Lightbox/style.css" />
-
-2. Create a collection of elements
-
-    #HTML
-    <div class="xtlightbox-gallery">
-        <a href="/images/image1.jpg" title="Image 1">Image 1</a>
-        <a href="/images/image2.jpg" title="Image 2">Image 2</a>
-        <a href="/images/image3.jpg" title="Image 3">Image 3</a>
-    </div>
-
-3. Initialize the lightbox
-
-    #JS
-    window.addEvent('domready', function() {
-        new XtLightbox('.xtlightbox-gallery a');
-    });
-
-Configuration
--------------
-
-XtLightbox has several levels of configuration: Base config, Renderer config and
-Adaptor config (on a per-adaptor basis). All of the options are passed to the
-Base class. Each adaptor and renderer can introduce any number of additional
-options. Here are the options, available so far:
-
-**XtLightbox**
-
-* `adaptors`: an array of adaptor names to be used with this instance. Defaults to `['Image']`
-* `adaptorOptions`: additional adaptor configuration. See below.
-* `renderer`: a name of a renderer to use with this instance. Defaults to `'Lightbox'`
-* `rendererOptions`: additional renderer configuration. See below.
-* `preload`: if true, all the content will be preloaded as soon as the lightbox is initialized. Defaults to `false`
-* `loop`: if true, clicking next while on the last element in the collection will move the user to the first element in the collection and vice-versa. Defaults to `false`
-* `closeKeys`: an array of key names, pressing which should trigger the lightbox to close. Defaults to `['esc']`,
-* `nextKeys`: an array of key names, pressing which should trigger the lightbox to show next image. Defaults to `['right', 'space']`
-* `prevKeys`: an array of key names, pressing which should trigger the lightbox to show previous image. Defaults to `['left']`
-* `hideArrowsFor`: an array of adaptor names, the contents for which should not have the next/previous overlays. Some adaptors enforce this parameter.
-
-**Adaptor: Image**
-
-* `extensions`: an array of file extensions to treat as images. If `'jpg'` is present in this array, the `'jpeg'` extension is added automatically. Any hrefs that do not end in these extensions are skipped by the lightbox. Defaults to `['jpg', 'png', 'gif']`.
-* `lightboxCompat`: if true, elements will be checked for having their `rel` attribute start with `'lighbox'` instead of checking for their extensions. Defaults to `true`
-
-**Adaptor: YouTube**
-
-* `width`: the width of the video. Defaults to `853`.
-* `height`: the height of the video. Defaults to `505`.
-* `hd`: if true, all the movies are loaded in HD quality, if available. Defaults to `true`.
-* `related`: if true, related videos feature is included. Defaults to `false`.
-* `autoplay`: if true, the video will be automatically played upon show. Defaults to `true`.
-
-**Renderer**
-
-* `positionText`: Used to specify a custom "Image x of y" string. Defaults to `'Image {x} of {total}'`
-* `useMask`: if true, the Mask class from MooTools more will be used when showing the lightbox. Defaults to `true`.
-* `maskOptions`: additional Mask options.
-
-**Renderer: Lightbox**
-
-* `maskFxOptions`: additional options for the Mask's Fx.Tween instance.
-* `widthFxOptions`: additional options for the Fx.Tween, that is used to adjust lightbox width.
-* `heightFxOptions`: additional options for the Fx.Tween, that is used to adjust lightbox height. Also used to adjust the `top` value.
-* `contentFxOptions`: additional options for the Fx.Tween, that is used to reveal the content of the lightbox.
-* `footerFxOptions`: additional options for the Fx.Tween, that is used to reveal the footer (content title and position) of the lightbox.
-
-Setting Adaptor and Renderer options
-------------------------------------
-
-Let's assume you want to disable lightbox compatibility of the Image Adaptor and
-adjust the position text for the Renderer. Here's how you do it:
-
-    #JS
-    window.addEvent('domready', function() {
-        new XtLightbox('.xtlightbox-gallery a', {
-            adaptorOptions: {
-                Image: {
-                    lightboxCompat: false
-                }
-            },
-            rendererOptions: {
-                positionText: "Image {x} of {total}. Use arrows to navigate, Esc to close."
+                    <h2 id="setting-adaptor-and-renderer-options">Setting Adaptor and Renderer options</h2>
+                    <p>
+                        Let's assume you want to disable lightbox compatibility
+                        of the Image Adaptor and adjust the position text for
+                        the Renderer. Here's how you do it:
+                    </p>
+                    <pre><code class="js">window.addEvent('domready', function() {
+    new XtLightbox('.xtlightbox-gallery a', {
+        adaptorOptions: {
+            Image: {
+                lightboxCompat: false
             }
-        });
+        },
+        rendererOptions: {
+            positionText: &quot;Image {x} of {total}. Use arrows to navigate, Esc to close.&quot;
+        }
     });
+});</code></pre>
 
+                    <h2 id="control-options">Control options</h2>
+                    <p>
+                        XtLightbox allows you to add and remove elements from
+                        the collection using the Base class API:
+                    </p>
+                    <pre><code class="js">var xtl = new XtLightbox();
+xtl.attach('.my-gallery');
+xtl.attach($('my-element'));
+xtl.attach($$('.my-collection'));</code></pre>
+                    <p>
+                        An element will only be attached once and only to a
+                        single lightbox instance. To detach any element, use
+                        this:
+                    </p>
+                    <pre><code class="js">xtl.detach('.my-gallery');</code></pre>
 
-Control options
----------------
+                    <h2 id="events">Events</h2>
+                    <p>
+                        XtLightbox provides several events you can listen to.
+                        One idea is to load more images using ajax when a user
+                        is close to viewing the last one in the collection. Here
+                        is the list of all the supported events:
+                    </p>
+                    <ul>
+                        <li>
+                            <code>attach</code>: fired as soon as an element is
+                            attached. Takes attached element as the only
+                            argument. Fired several times for an element
+                            collection
+                        </li>
+                        <li>
+                            <code>detach</code>: fired as soon as an element is
+                            detached. Takes detached element as the only
+                            argument. Fired several times for an element
+                            collection
+                        </li>
+                        <li>
+                            <code>show</code>: fired as soon as the show
+                            sequence is started. Takes current element as the
+                            only argument
+                        </li>
+                        <li>
+                            <code>hide</code>: fired as soon as the hide
+                            sequence is started. No arguments
+                        </li>
+                        <li>
+                            <code>next</code>: fired as soon as the next button
+                            is pressed. Takes the next element as the only
+                            argument. Note, that the <code>show</code> event is
+                            fired next
+                        </li>
+                        <li>
+                            <code>previous</code>: fired as soon as the previous
+                            button is pressed. Takes the previous element as the
+                            only argument. Note, that the <code>show</code>
+                            event is fired next
+                        </li>
+                        <li>
+                            <code>clear</code>: fired when the lightbox instance
+                            is cleared of all elements. No arguments
+                        </li>
+                        <li>
+                            <code>destroy</code>: fired when the lightbox
+                            instance is destroyed. Also fires the
+                            <code>clear</code> event
+                        </li>
+                    </ul>
 
-XtLightbox allows you to add and remove elements from the collection using the
-Base class API:
+                    <h2 id="download">Download</h2>
+                    <p>
+                        You can download the latest version of XtLightbox from
+                        any one of these locations:
+                    </p>
+                    <ul>
+                        <li><a href="http://github.com/kpobococ/XtLightbox">XtLightbox on github</a></li>
+                        <li><a href="http://mootools.net/forge/p/xtlightbox">XtLightbox on MooTools Forge</a></li>
+                    </ul>
 
-    #JS
-    var xtl = new XtLightbox();
-    xtl.attach('.my-gallery');
-    xtl.attach($('my-element'));
-    xtl.attach($$('my-collection'));
+                    <h2 id="demos">Demos</h2>
+                    <h4 id="demos-image-gallery">Small image gallery</h4>
+                    <p>
+                        Let's put together a small fruit basket showcase. First,
+                        we need to create the HTML layout:
+                    </p>
+                    <pre><code class="html">&lt;div class=&quot;gallery photo&quot;&gt;
+    &lt;a href=&quot;./images/fruit-1.jpg&quot; title=&quot;Some fruit&quot;&gt;
+        &lt;img src=&quot;./images/small-fruit-1.jpg&quot; alt=&quot;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;./images/fruit-2.jpg&quot; title=&quot;Some more fruit&quot;&gt;
+        &lt;img src=&quot;./images/small-fruit-2.jpg&quot; alt=&quot;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;./images/fruit-3.gif&quot; title=&quot;Even more fruit&quot;&gt;
+        &lt;img src=&quot;./images/small-fruit-3.jpg&quot; alt=&quot;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    <p>
+                        Next, we need to initialize our lightbox. Let's add
+                        the initialization code to the document head. We want
+                        our images to loop. Also, we want to disable lightbox
+                        compatibility:
+                    </p>
+                    <pre><code class="js">window.addEvent('domready', function() {
+    new XtLightbox('.gallery.photo > a', {
+        loop: true,
+        adaptorOptions: {
+            Image: {
+                lightboxCompat: false
+            }
+        }
+    });
+});</code></pre>
+                    <p>
+                        All done. Here's what we get:
+                    </p>
+                    <div class="gallery photo">
+                        <a href="./images/fruit-1.jpg" title="Some fruit">
+                            <img src="./images/small-fruit-1.jpg" alt="" />
+                        </a>
+                        <a href="./images/fruit-2.jpg" title="Some more fruit">
+                            <img src="./images/small-fruit-2.jpg" alt="" />
+                        </a>
+                        <a href="./images/fruit-3.gif" title="Even more fruit">
+                            <img src="./images/small-fruit-3.jpg" alt="" />
+                        </a>
+                        <div class="clear"></div>
+                    </div>
+                    <h4 id="demos-video-gallery">Videos gallery</h4>
+                    <p>
+                        This one is a three part Matthew Perry interview on
+                        Jimmy Kimmel:
+                    </p>
+                    <pre><code class="html">&lt;div class=&quot;gallery video&quot;&gt;
+    &lt;a href=&quot;http://youtube.com/watch?v=KdFNXIFRMJY&quot; title=&quot;Matthew Perry on Jimmy Kimmel Live PART 1&quot;&gt;
+        &lt;img src=&quot;./images/jimmy-kimmel-1.jpg&quot; alt=&quot;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;http://youtube.com/watch?v=Pdsotunlurg&quot; title=&quot;Matthew Perry on Jimmy Kimmel Live PART 2&quot;&gt;
+        &lt;img src=&quot;./images/jimmy-kimmel-2.jpg&quot; alt=&quot;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;http://youtube.com/watch?v=-2vwiwA5YD4&quot; title=&quot;Matthew Perry on Jimmy Kimmel Live PART 3&quot;&gt;
+        &lt;img src=&quot;./images/jimmy-kimmel-3.jpg&quot; alt=&quot;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    <p>
+                        And some initialization code - load YouTube adaptor,
+                        change position text to reflect that this is a video
+                        gallery and also to give users a hint on navigating
+                        the lightbox without visible arrows:
+                    </p>
+                    <pre><code class="js">window.addEvent('domready', function() {
+    new XtLightbox('.gallery.video > a', {
+        adaptors: ['YouTube'],
+        rendererOptions: {
+            positionText: 'Video {x} of {total}. Use arrows on your keyboard to navigate'
+        }
+    });
+});</code></pre>
+                    <p>
+                        And that's about it.
+                    </p>
+                    <div class="gallery video">
+                        <a href="http://youtube.com/watch?v=KdFNXIFRMJY" title="Matthew Perry on Jimmy Kimmel Live PART 1">
+                            <img src="./images/jimmy-kimmel-1.jpg" alt="" />
+                        </a>
+                        <a href="http://youtube.com/watch?v=Pdsotunlurg" title="Matthew Perry on Jimmy Kimmel Live PART 2">
+                            <img src="./images/jimmy-kimmel-2.jpg" alt="" />
+                        </a>
+                        <a href="http://youtube.com/watch?v=-2vwiwA5YD4" title="Matthew Perry on Jimmy Kimmel Live PART 3">
+                            <img src="./images/jimmy-kimmel-3.jpg" alt="" />
+                        </a>
+                        <div class="clear"></div>
+                    </div>
+                    <h4 id="demos-vimeo-gallery">Vimeo video gallery</h4>
+                    <p>
+                        This is an example of the newest Vimeo adaptor in action.
+                        The video is one of the Staff Picks from Vimeo.
+                    </p>
+                    <pre><code class="html">&lt;div class=&quot;gallery vimeo&quot;&gt;
+    &lt;a href=&quot;http://vimeo.com/21504557&quot; title=&quot;Dogboarding&quot;&gt;
+        &lt;img src=&quot;./images/vimeo-dogboarding.jpg&quot; alt=&quot;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    <p>
+                        And initialization - load Vimeo adaptor, change position
+                        text - almost identical to YouTube. We could've just as
+                        well used these two adaptors together to create a
+                        combined video gallery:
+                    </p>
+                    <pre><code class="js">window.addEvent('domready', function() {
+    new XtLightbox('.gallery.vimeo > a', {
+        adaptors: ['Vimeo'],
+        rendererOptions: {
+            positionText: 'Video {x} of {total}. Use arrows on your keyboard to navigate'
+        }
+    });
+});</code></pre>
+                    <p>
+                        And here's what you get:
+                    </p>
+                    <div class="gallery vimeo">
+                        <a href="http://vimeo.com/21504557" title="Dogboarding">
+                            <img src="./images/vimeo-dogboarding.jpg" alt="" />
+                        </a>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
 
-An element will only be attached once and only to a single lightbox instance. To
-detach any element, use this:
+            <div class="aside">
+                <div class="wrapper">
+                    <h2>Contents</h2>
+                    <ol>
+                        <li>
+                            <a href="#how-to-use">How to use</a>
+                        </li>
+                        <li>
+                            <a href="#configuration">Configuration</a>
+                            <ol>
+                                <li>
+                                    <a href="#configuration-xtlightbox">XtLightbox</a>
+                                </li>
+                                <li>
+                                    <a href="#configuration-adaptor-image">Adaptor: Image</a>
+                                </li>
+                                <li>
+                                    <a href="#configuration-adaptor-youtube">Adaptor: YouTube</a>
+                                </li>
+                                <li>
+                                    <a href="#configuration-adaptor-vimeo">Adaptor: Vimeo</a>
+                                </li>
+                                <li>
+                                    <a href="#configuration-renderer">Renderer</a>
+                                </li>
+                                <li>
+                                    <a href="#configuration-renderer-lightbox">Renderer: Lightbox</a>
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            <a href="#setting-adaptor-and-renderer-options">Setting Adaptor and Renderer options</a>
+                        </li>
+                        <li>
+                            <a href="#control-options">Control options</a>
+                        </li>
+                        <li>
+                            <a href="#events">Events</a>
+                        </li>
+                        <li>
+                            <a href="#download">Download</a>
+                        </li>
+                        <li>
+                            <a href="#demos">Demos</a>
+                            <ol>
+                                <li>
+                                    <a href="#demos-image-gallery">Small image gallery</a>
+                                </li>
+                                <li>
+                                    <a href="#demos-video-gallery">Videos gallery</a>
+                                </li>
+                                <li>
+                                    <a href="#demos-vimeo-gallery">Vimeo video gallery</a>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                    <p>
+                        <a href="#">Back to top</a>
+                    </p>
+                </div>
+            </div>
 
-    #JS
-    xtl.detach('.my-gallery');
-
-Events
-------
-
-XtLightbox provides several events you can listen to. One idea is to load more
-images using ajax when a user is close to viewing the last one in the collection.
-Here is the list of all the supported events:
-
-* `attach`: fired as soon as an element is attached. Takes attached element as the only argument. Fired several times for an element collection.
-* `detach`: fired as soon as an element is detached. Takes detached element as the only argument. Fired several times for an element collection.
-* `show`: fired as soon as the show sequence is started. Takes current element as the only argument.
-* `hide`: fired as soon as the hide sequence is started. No arguments.
-* `next`: fired as soon as the next button is pressed. Takes the next element as the only argument. Note, that the `show` event is fired next.
-* `previous`: fired as soon as the previous button is pressed. Takes the previous element as the only argument. Note, that the `show` event is fired next.
-* `clear`: fired when the lightbox instance is cleared of all elements. No arguments.
-* `destroy`: fired when the lightbox instance is destroyed. Also fires the `clear` event.
--->
-  </body>
+        </div>
+    </body>
 </html>
