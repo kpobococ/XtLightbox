@@ -10,7 +10,6 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
     z-index: 2;
 }
 .xt-lightbox .button {
@@ -21,17 +20,17 @@
 }
 .xt-lightbox-wrapper {
     background: #fff;
-    margin: auto;
+    margin: 10px;
     padding: 10px;
-    width: 200px;
     position: relative;
 }
 .xt-lightbox-content-wrapper {
     position: relative;
 }
 .xt-lightbox-content {
-    height: 100px;
     position: relative;
+    min-width: 200px;
+    min-height: 100px;
 }
 .xt-lightbox.loading .xt-lightbox-content {
     background: url('./loading.gif') no-repeat 50% 50%;
