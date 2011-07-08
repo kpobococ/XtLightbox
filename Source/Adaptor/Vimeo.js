@@ -58,7 +58,7 @@ XtLightbox.Adaptor.Vimeo = new Class({
 
 	setSize: function(element, size){
 		if (!XtLightbox.Adaptor.cached(element)) throw new Error('Element content must be loaded first');
-		var obj = $(XtLightbox.Adaptor.load(element));
+		var obj = document.id(XtLightbox.Adaptor.load(element));
 		if (!obj.set){
 			obj.width = size.x;
 			obj.height = size.y;

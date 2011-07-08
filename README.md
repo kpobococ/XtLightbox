@@ -172,6 +172,10 @@ Here is the list of all the supported events:
 Changelog
 ---------
 
+**Version 1.3.3**
+
+* Replaced $ with document.id calls to improve compatibility with other frameworks (Issue #13);
+
 **Version 1.3.2**
 
 * Fixed image skipping when navigating with keyboard (Issue #12);

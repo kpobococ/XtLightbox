@@ -16,7 +16,8 @@ provides: [XtLightbox]
 ...
 */
 
-XtLightbox = new Class({
+(function($){
+var XtLightbox = this.XtLightbox = new Class({
 
 	Implements: [Options, Events],
 
@@ -268,3 +269,4 @@ XtLightbox = new Class({
 	}
 
 });
+})(document.id);
