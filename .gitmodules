@@ -1,0 +1,3 @@
+[submodule "Vendor/XtLightbox"]
+	path = Vendor/XtLightbox
+	url = git://github.com/kpobococ/XtLightbox.git
