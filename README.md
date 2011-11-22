@@ -172,6 +172,10 @@ Here is the list of all the supported events:
 Changelog
 ---------
 
+**Version 1.3.4**
+
+* Fixed an exception being thrown when using incrementalPreLoad on single element galleries (Reported by Ben Mueller);
+
 **Version 1.3.3**
 
 * Replaced $ with document.id calls to improve compatibility with other frameworks (Issue #13);

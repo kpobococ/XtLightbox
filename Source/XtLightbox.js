@@ -182,17 +182,17 @@ var XtLightbox = this.XtLightbox = new Class({
 			// at this point we are done loading the image; optionally 'incremenetally' preload
 			// note that the incremental preload functionality will preload backwards & forwards
 
-						var a;
+			var a;
 			for (a = 0; a < this.options.incrementalPreLoad; a++){
-				if (o.position + a < o.total){
+				if (o.position + a < o.total && this.elements[o.position + a]){
 					this.adaptors[this.elements[o.position + a].$xtlightbox.adaptor].load(this.elements[o.position + a]);
 				}
 			}
 			
 			for (a = -this.options.incrementalPreLoad; a < 0; a++){
-				if (o.position + a < 0){
+				if (o.position + a < 0 && this.elements[o.total + (o.position + a)]){
 					this.adaptors[this.elements[o.total + (o.position + a)].$xtlightbox.adaptor].load(this.elements[o.total + (o.position + a)]);
-				} else {
+				} else if (this.elements[o.position + a]) {
 					this.adaptors[this.elements[o.position + a].$xtlightbox.adaptor].load(this.elements[o.position + a]);
 				}
 			}
