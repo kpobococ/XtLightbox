@@ -137,7 +137,7 @@ var XtLightbox = this.XtLightbox = new Class({
 			this.elements.erase(el);
 			el.removeEvent('click', this.onElementClick);
 			delete el.$xtlightbox.adaptor;
-		});
+		}, this);
 		this.fireEvent('detach', elements);
 		return this;
 	},
@@ -178,7 +178,7 @@ var XtLightbox = this.XtLightbox = new Class({
 			adaptor.setSize(el, o.size);
 			var c = adaptor.getContent(el);
 			this.renderer.render(c, o);
-			
+
 			// at this point we are done loading the image; optionally 'incremenetally' preload
 			// note that the incremental preload functionality will preload backwards & forwards
 
@@ -188,7 +188,7 @@ var XtLightbox = this.XtLightbox = new Class({
 					this.adaptors[this.elements[o.position + a].$xtlightbox.adaptor].load(this.elements[o.position + a]);
 				}
 			}
-			
+
 			for (a = -this.options.incrementalPreLoad; a < 0; a++){
 				if (o.position + a < 0 && this.elements[o.total + (o.position + a)]){
 					this.adaptors[this.elements[o.total + (o.position + a)].$xtlightbox.adaptor].load(this.elements[o.total + (o.position + a)]);
@@ -196,7 +196,7 @@ var XtLightbox = this.XtLightbox = new Class({
 					this.adaptors[this.elements[o.position + a].$xtlightbox.adaptor].load(this.elements[o.position + a]);
 				}
 			}
-			
+
 		}.bind(this));
 		this.current = element;
 		this.shown = true;

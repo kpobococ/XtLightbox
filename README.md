@@ -172,6 +172,10 @@ Here is the list of all the supported events:
 Changelog
 ---------
 
+**Version 1.3.5**
+
+* Fixed detach method not working because of invalid function binding (Issue #18);
+
 **Version 1.3.4**
 
 * Fixed an exception being thrown when using incrementalPreLoad on single element galleries (Reported by Ben Mueller);
