@@ -172,6 +172,10 @@ Here is the list of all the supported events:
 Changelog
 ---------
 
+**Version 1.3.6**
+
+* Fixed lightbox footer on iOS (Issue #19);
+
 **Version 1.3.5**
 
 * Fixed detach method not working because of invalid function binding (Issue #18);
