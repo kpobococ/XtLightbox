@@ -159,8 +159,9 @@ var XtLightbox = this.XtLightbox = new Class({
 					position: this.elements.indexOf(el) + 1,
 					adaptor: element.$xtlightbox.adaptor
 				};
-			if (this.options.loop || o.position > 1) o.prev = true;
-			if (this.options.loop || o.position < o.total) o.next = true;
+			var loop = this.options.loop && o.total > 1;
+			if (loop || o.position > 1) o.prev = true;
+			if (loop || o.position < o.total) o.next = true;
 
 			// max content size may depend on title size
 			var maxSize = this.renderer.getMaxSize(o);
