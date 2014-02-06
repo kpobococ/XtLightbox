@@ -33,8 +33,8 @@ XtLightbox.Adaptor.YouTube = new Class({
 	},
 
 	check: function(element){
-		var l = /http:\/\/(?:www\.)?youtube.com\/watch\?(?:\S+=\S*&)*v=([-a-z0-9_]+)(?:&|$)/i,
-		s = /http:\/\/(?:www\.)?youtu.be\/([-a-z0-9_]+)$/i;
+		var l = /https?:\/\/(?:www\.)?youtube.com\/watch\?(?:\S+=\S*&)*v=([-a-z0-9_]+)(?:&|$)/i,
+		s = /https?:\/\/(?:www\.)?youtu.be\/([-a-z0-9_]+)$/i;
 		var r = l.exec(element.href);
 		if (!r) r = s.exec(element.href);
 		if (r){

@@ -171,6 +171,14 @@ Here is the list of all the supported events:
 
 Changelog
 ---------
+**Version 1.3.8**
+
+* Added HTTPS support for Vimeo and YouTube (credit to [ronaldbarendse](https://github.com/ronaldbarendse));
+
+**Version 1.3.7**
+
+* When looping is enabled and there is only a single element, the previous/next arrows are hidden (credit to [ronaldbarendse](https://github.com/ronaldbarendse));
+* Rolled back changes introduced in version 1.3.6, as they broke the lightbox renderer for a lot of browsers;
 
 **Version 1.3.7**
 
