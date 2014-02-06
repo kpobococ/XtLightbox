@@ -35,7 +35,7 @@ XtLightbox.Adaptor.Vimeo = new Class({
 	},
 
 	check: function(element){
-		var r = /http:\/\/(?:www\.)?vimeo.com\/([0-9]+)(?:\?|$)/i.exec(element.href);
+		var r = /https?:\/\/(?:www\.)?vimeo.com\/([0-9]+)(?:\?|$)/i.exec(element.href);
 		if (r){
 			element.$xtlightbox = element.$xtlightbox || {};
 			element.$xtlightbox.VimeoId = r[1];
