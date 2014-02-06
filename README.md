@@ -171,6 +171,9 @@ Here is the list of all the supported events:
 
 Changelog
 ---------
+**Version 1.3.8**
+
+* Added HTTPS support for Vimeo and YouTube (credit to [ronaldbarendse](https://github.com/ronaldbarendse));
 
 **Version 1.3.7**
 
